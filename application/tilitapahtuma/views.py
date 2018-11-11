@@ -1,0 +1,67 @@
+from flask import render_template, request, redirect, url_for
+from flask_login import current_user
+
+from application import app, db, login_manager
+from application.tilitapahtuma.models import Tilitapahtuma
+from application.tilitapahtuma.forms import TilisiirtoForm
+from application.tilitapahtuma.forms import PankkisiirtoForm
+from application.auth.models import User
+
+@app.route("/tilitapahtumat/", methods=["GET"])
+def tilitapahtumat_index():
+    return render_template("tilitapahtumat/new.html", tilisiirtoform = TilisiirtoForm(), pankkisiirtoform = PankkisiirtoForm(), tilitapahtumat = User.find_tilitapahtumat_byUser(current_user.id))
+    
+@app.route("/tilitapahtumat/new/")
+def tilitapahtumat_form():
+    return render_template("tilitapahtumat/new.html", tilisiirtoform = TilisiirtoForm(), pankkisiirtoform = PankkisiirtoForm())
+
+
+@app.route("/tilitapahtumat/<tilitapahtuma_id>/", methods=["POST"])
+def add_to_game_account(tilitapahtuma_id):
+
+    t = Tilitapahtuma.query.get(tilitapahtuma_id)
+    if t.account_id != current_user.id:
+        # tee jotain, esim. 
+        return login_manager.unauthorized()
+    #if t.done:
+    #    t. = False
+    #else:
+    #    t.done = True
+    #db.session().commit()
+    
+    return redirect(url_for("tilitapahtumat_index"))
+
+
+
+@app.route("/tilitapahtumat/tilisiirto", methods=["POST"])
+def tilitapahtuma_pelitilille():
+    form = TilisiirtoForm(request.form)
+
+    if not form.validate() or form.tilisiirto.data <= 0:
+
+        return render_template("tilitapahtumat/new.html", tilisiirtoform = form, pankkisiirtoform = PankkisiirtoForm())
+
+    t = Tilitapahtuma(form.tilisiirto.data)
+    t.account_id = current_user.id
+    current_user.rahat += form.tilisiirto.data
+
+    db.session().add(t)
+    db.session().commit()
+    
+    return redirect(url_for("tilitapahtumat_index"))
+
+@app.route("/tilitapahtumat/pankkisiirto", methods=["POST"])
+def tilitapahtuma_pankkitilille():
+    form = PankkisiirtoForm(request.form)
+
+    if not form.validate() or form.pankkisiirto.data > current_user.rahat | form.pankkisiirto.data <= 0:
+        return render_template("tilitapahtumat/new.html", pankkisiirtoform = form, tilisiirtoform = TilisiirtoForm())
+
+    t = Tilitapahtuma(-form.pankkisiirto.data)
+    t.account_id = current_user.id
+    current_user.rahat -= form.pankkisiirto.data
+
+    db.session().add(t)
+    db.session().commit()
+    
+    return redirect(url_for("tilitapahtumat_index"))

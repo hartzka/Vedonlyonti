@@ -1,0 +1,68 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<table>
+    {% if current_user.is_authenticated %}
+    <p>Rahat: {{ current_user.rahat}}</p>
+    <td></td>
+    {% endif %}
+{% for tapahtuma in tilitapahtumat %}
+        <tr>
+          <td>{{ tapahtuma.date_created }}</td>
+          <td>{{ tapahtuma.siirto }}</td>
+          </tr>
+          {% endfor %}
+          </table>
+
+<form method="POST" action="{{ url_for('tilitapahtuma_pelitilille') }}">
+  <table>
+    <tr>
+      
+      <td>Siirrä rahaa pelitilille:</td>
+      <tr></tr>
+        <td>
+            {{ tilisiirtoform.tilisiirto.label }}
+          </td>
+          <td>
+            {{ tilisiirtoform.tilisiirto }}
+          </td>
+          <td>
+            <ul>
+              {% for error in tilisiirtoform.tilisiirto.errors %}
+              <li>{{ error }}</li>
+              {% endfor %}
+            </ul>
+          </td>
+
+
+<td colspan="3">
+  <input type="submit" value="Siirrä"/>
+</td>
+    </tr>
+</form>
+
+<form method="POST" action="{{ url_for('tilitapahtuma_pankkitilille') }}">
+    <table>
+      <tr>
+        <td>Siirrä rahaa pankkitilille:</td>
+        <tr></tr>
+          <td>
+              {{ pankkisiirtoform.pankkisiirto.label }}
+            </td>
+            <td>
+              {{ pankkisiirtoform.pankkisiirto }}
+            </td>
+            <td>
+              <ul>
+                {% for error in pankkisiirtoform.pankkisiirto.errors %}
+                <li>{{ error }}</li>
+                {% endfor %}
+              </ul>
+            </td>
+  <td colspan="3">
+    <input type="submit" value="Siirrä"/>
+  </td>
+      </tr>
+  </form>
+
+{% endblock %}

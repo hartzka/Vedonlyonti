@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<p><b>Monivetokohteet</b></p>
+<br>
+{% for tapahtuma in tapahtumat %}
+        <tr>
+            <td><a href="{{ url_for('index') }}">Veikkaa</a></td>
+          <td>{{ tapahtuma.koti }}</td>
+          <td>{{ tapahtuma.vieras }}</td>
+          <td>{{ tapahtuma.laji }}</td>
+          <td>{{ tapahtuma.kerroin }}</td>
+          <td>{{ tapahtuma.date_expire }}</td>
+          </tr>
+          <br>
+          {% endfor %}
+<a href="{{ url_for('index') }}">Valikkoon</a>
+{% endblock %}
