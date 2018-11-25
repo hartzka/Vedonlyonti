@@ -38,7 +38,8 @@ class Veto(Base):
         tapahtumat = []
         
         stmt = text("SELECT id FROM tapahtuma WHERE active = False"
-        " AND id NOT IN (SELECT tapahtuma_id FROM tapahtumaveto)")
+        " AND id NOT IN (SELECT tapahtuma_id FROM tapahtumaveto)"
+        " AND id NOT IN (SELECT tapahtuma_id FROM tapahtumajoukkue)")
         res = db.engine.execute(stmt)
         for row in res:
             tapahtumat.append(row[0])
