@@ -1,0 +1,28 @@
+insert into laji(nimi) values ('jalkapallo');
+insert into laji(nimi) values ('kiekko');
+
+insert into joukkue(nimi, attack, defence, tactic, laji_id) values ('Hjk', 60, 55, 55, 1);
+insert into joukkue(nimi, attack, defence, tactic, laji_id) values ('Rops', 55, 50, 55, 1);
+insert into joukkue(nimi, attack, defence, tactic, laji_id) values ('Barcelona', 98, 90, 95, 1);
+insert into joukkue(nimi, attack, defence, tactic, laji_id) values ('Real Madrid', 95, 92, 95, 1);
+insert into joukkue(nimi, attack, defence, tactic, laji_id) values ('Juventus', 90, 97, 96, 1);
+insert into joukkue(nimi, attack, defence, tactic, laji_id) values ('Napoli', 86, 91, 90, 1);
+insert into joukkue(nimi, attack, defence, tactic, laji_id) values ('ManU', 90, 86, 90, 1);
+insert into joukkue(nimi, attack, defence, tactic, laji_id) values ('ManC', 90, 90, 90, 1);
+insert into joukkue(nimi, attack, defence, tactic, laji_id) values ('Bayern Munchen', 96, 91, 94, 1);
+insert into joukkue(nimi, attack, defence, tactic, laji_id) values ('Frankfurt', 75, 75, 75, 1);
+insert into joukkue(nimi, attack, defence, tactic, laji_id) values ('test', 96, 91, 94, 1);
+insert into joukkue(nimi, attack, defence, tactic, laji_id) values ('tetst', 75, 75, 75, 1);
+
+insert into joukkue(nimi, attack, defence, tactic, laji_id) values ('H', 60, 55, 55, 1);
+insert into joukkue(nimi, attack, defence, tactic, laji_id) values ('R', 55, 50, 55, 1);
+insert into joukkue(nimi, attack, defence, tactic, laji_id) values ('B', 98, 90, 95, 1);
+insert into joukkue(nimi, attack, defence, tactic, laji_id) values ('Ra', 95, 92, 95, 1);
+insert into joukkue(nimi, attack, defence, tactic, laji_id) values ('J', 90, 97, 96, 1);
+insert into joukkue(nimi, attack, defence, tactic, laji_id) values ('N', 86, 91, 90, 1);
+insert into joukkue(nimi, attack, defence, tactic, laji_id) values ('Ma', 90, 86, 90, 1);
+insert into joukkue(nimi, attack, defence, tactic, laji_id) values ('M', 90, 90, 90, 1);
+insert into joukkue(nimi, attack, defence, tactic, laji_id) values ('Ba', 96, 91, 94, 1);
+insert into joukkue(nimi, attack, defence, tactic, laji_id) values ('F', 75, 75, 75, 1);
+insert into joukkue(nimi, attack, defence, tactic, laji_id) values ('t', 96, 91, 94, 1);
+insert into joukkue(nimi, attack, defence, tactic, laji_id) values ('taa', 75, 75, 75, 1);

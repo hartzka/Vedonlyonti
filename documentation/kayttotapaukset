@@ -1,0 +1,8 @@
+Aluksi luodaan uusi käyttäjätunnus ja salasana Luo uusi käyttäjä -kohdasta.
+Käyttäjä voi kirjautua omilla tunnuksillaan.
+Käyttäjällä on mahdollisuus lisätä rahaa peli- tai pankkitilille rahat-kohdasta.
+Omat vedot näkee Omat vedot -kohdasta.
+Vetoja voi lyödä moniveto-linkistä, josta näkee tapahtumat.
+Vetoja voi valita useita ja vedolle asetetaan panos.
+Vedon ratkeamisaika on näkyvillä.
+Mahdolliset voitot maksetaan pelitilille.

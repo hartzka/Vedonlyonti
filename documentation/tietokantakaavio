@@ -1,0 +1,95 @@
+CREATE TABLE laji (
+        id INTEGER NOT NULL,
+        date_created DATETIME,
+        date_modified DATETIME,
+        nimi VARCHAR NOT NULL,
+        PRIMARY KEY (id)
+);
+CREATE TABLE account (
+        id INTEGER NOT NULL,
+        date_created DATETIME,
+        date_modified DATETIME,
+        name VARCHAR(144) NOT NULL,
+        username VARCHAR(144) NOT NULL,
+        password VARCHAR(144) NOT NULL,
+        rahat DECIMAL NOT NULL,
+        PRIMARY KEY (id)
+);
+CREATE TABLE veto (
+        id INTEGER NOT NULL,
+        date_created DATETIME,
+        date_modified DATETIME,
+        panos INTEGER NOT NULL,
+        kerroin DECIMAL NOT NULL,
+        voitto DECIMAL NOT NULL,
+        account_id INTEGER NOT NULL,
+        PRIMARY KEY (id),
+        FOREIGN KEY(account_id) REFERENCES account (id)
+);
+CREATE TABLE tilitapahtuma (
+        id INTEGER NOT NULL,
+        date_created DATETIME,
+        date_modified DATETIME,
+        siirto DECIMAL NOT NULL,
+        info VARCHAR NOT NULL,
+        account_id INTEGER NOT NULL,
+        PRIMARY KEY (id),
+        FOREIGN KEY(account_id) REFERENCES account (id)
+);
+CREATE TABLE tapahtuma (
+        id INTEGER NOT NULL,
+        date_created DATETIME,
+        date_modified DATETIME,
+        koti VARCHAR NOT NULL,
+        vieras VARCHAR NOT NULL,
+        kerroin1 DECIMAL NOT NULL,
+        "kerroinX" DECIMAL NOT NULL,
+        kerroin2 DECIMAL NOT NULL,
+        laji_id INTEGER NOT NULL,
+        date_expire DATETIME,
+        active BOOLEAN NOT NULL,
+        tulos VARCHAR NOT NULL,
+        PRIMARY KEY (id),
+        FOREIGN KEY(laji_id) REFERENCES laji (id),
+        CHECK (active IN (0, 1))
+);
+CREATE TABLE joukkue (
+        id INTEGER NOT NULL,
+        date_created DATETIME,
+        date_modified DATETIME,
+        nimi VARCHAR NOT NULL,
+        attack INTEGER NOT NULL,
+        defence INTEGER NOT NULL,
+        tactic INTEGER NOT NULL,
+        laji_id INTEGER NOT NULL,
+        PRIMARY KEY (id),
+        FOREIGN KEY(laji_id) REFERENCES laji (id)
+);
+CREATE TABLE tapahtumaveto (
+        id INTEGER NOT NULL,
+        date_created DATETIME,
+        date_modified DATETIME,
+        veikkaus VARCHAR NOT NULL,
+        name VARCHAR NOT NULL,
+        veto_id INTEGER NOT NULL,
+        tapahtuma_id INTEGER NOT NULL,
+        PRIMARY KEY (id),
+        FOREIGN KEY(veto_id) REFERENCES veto (id),
+        FOREIGN KEY(tapahtuma_id) REFERENCES tapahtuma (id)
+);
+CREATE TABLE tapahtumajoukkue (
+        id INTEGER NOT NULL,
+        date_created DATETIME,
+        date_modified DATETIME,
+        pisteet INTEGER,
+        koti BOOLEAN NOT NULL,
+        attack INTEGER NOT NULL,
+        defence INTEGER NOT NULL,
+        tactic INTEGER NOT NULL,
+        joukkue_id INTEGER NOT NULL,
+        tapahtuma_id INTEGER NOT NULL,
+        PRIMARY KEY (id),
+        CHECK (koti IN (0, 1)),
+        FOREIGN KEY(joukkue_id) REFERENCES joukkue (id),
+        FOREIGN KEY(tapahtuma_id) REFERENCES tapahtuma (id)
+);
