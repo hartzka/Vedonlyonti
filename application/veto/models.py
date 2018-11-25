@@ -37,7 +37,7 @@ class Veto(Base):
     def haePoistettavat():
         tapahtumat = []
         
-        stmt = text("SELECT id FROM tapahtuma WHERE active = 0"
+        stmt = text("SELECT id FROM tapahtuma WHERE active = False"
         " AND id NOT IN (SELECT tapahtuma_id FROM tapahtumaveto)")
         res = db.engine.execute(stmt)
         for row in res:
