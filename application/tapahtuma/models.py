@@ -186,7 +186,7 @@ class Tapahtuma(Base):
 
         stmt = text("SELECT tapahtuma.id, date_expire"
                     " FROM tapahtuma, laji"
-                    " WHERE active = 1"
+                    " WHERE active = True"
                     " AND laji.id = tapahtuma.laji_id"
                      )
         res = db.engine.execute(stmt)
@@ -227,7 +227,7 @@ class Tapahtuma(Base):
 
         stmt = text("SELECT tapahtuma.id, koti, vieras, laji_id, kerroin1, kerroin2, kerroinX, date_expire"
                     " FROM tapahtuma, laji"
-                    " WHERE active = 1"
+                    " WHERE active = True"
                     " AND laji.id = tapahtuma.laji_id"
                      )
         res = db.engine.execute(stmt)
@@ -245,7 +245,7 @@ class Tapahtuma(Base):
     @staticmethod
     def haeTulos(tapahtuma_id):
         stmt = text("SELECT tulos FROM tapahtuma"
-                     " WHERE active = 1 AND tapahtuma.id = :id"
+                     " WHERE active = True AND tapahtuma.id = :id"
                      ).params(id=tapahtuma_id)
         res = db.engine.execute(stmt)
 

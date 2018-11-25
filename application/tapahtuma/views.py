@@ -45,7 +45,7 @@ def tapahtumat_moniveto():
         ).params(id = tid)
         db.engine.execute(stmt)
 
-    stmt = text("SELECT id, date_expire FROM tapahtuma WHERE active = 1")
+    stmt = text("SELECT id, date_expire FROM tapahtuma WHERE active = True")
     res = db.engine.execute(stmt)
     tapahtumajoukkueet = []
     tapahtumat = []
@@ -177,7 +177,7 @@ def tapahtumat_moniveto():
         db.session().add(tj1)
         db.session().add(tj2)
         db.session().commit()
-        stmt = text("UPDATE tapahtuma SET active = 0 WHERE id = :id"
+        stmt = text("UPDATE tapahtuma SET active = False WHERE id = :id"
                      ).params(id=row["old"])
         db.engine.execute(stmt)
         
