@@ -263,6 +263,7 @@ def create_moniveto():
     t.account_id = current_user.id
     current_user.rahat = current_user.rahat - int(panos)
     db.session().add(t)
+    db.session().commit()
    
     for tapahtuma in tapahtumat:
         tapahtuma_id = tapahtuma["id"]
