@@ -153,7 +153,7 @@ class Tapahtuma(Base):
     koti = db.Column(db.String, nullable=False)
     vieras = db.Column(db.String, nullable=False)
     kerroin1 = db.Column(db.DECIMAL, nullable=False)
-    kerroinX = db.Column(db.DECIMAL, nullable=False)
+    kerroinx = db.Column(db.DECIMAL, nullable=False)
     kerroin2 = db.Column(db.DECIMAL, nullable=False)
     laji_id = db.Column(db.Integer, db.ForeignKey('laji.id'),
                            nullable=False)
@@ -163,14 +163,14 @@ class Tapahtuma(Base):
     
 
 
-    def __init__(self, koti, vieras, laji, kerroin1, kerroinX, kerroin2, date_expire, active):
+    def __init__(self, koti, vieras, laji, kerroin1, kerroinx, kerroin2, date_expire, active):
         
         self.laji_id = laji
         self.koti = koti
         self.vieras = vieras
         self.kerroin1 = kerroin1
         self.kerroin2 = kerroin2
-        self.kerroinX = kerroinX
+        self.kerroinx = kerroinx
         self.date_expire = date_expire
         self.active=active
         self.tulos = "kesken"
@@ -225,7 +225,7 @@ class Tapahtuma(Base):
         good_events = 0
         present = datetime.now()
 
-        stmt = text("SELECT tapahtuma.id, koti, vieras, laji_id, kerroin1, kerroin2, kerroinX, date_expire"
+        stmt = text("SELECT tapahtuma.id, koti, vieras, laji_id, kerroin1, kerroin2, kerroinx, date_expire"
                     " FROM tapahtuma, laji"
                     " WHERE active = True"
                     " AND laji.id = tapahtuma.laji_id"
