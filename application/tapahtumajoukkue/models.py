@@ -14,9 +14,13 @@ class Tapahtumajoukkue(Base):
                            nullable=False)
 
     def __init__(self, koti, attack, defence, tactic, joukkue, tapahtuma):
+        self.pisteet = -1
         self.joukkue_id = joukkue
         self.tapahtuma_id = tapahtuma
         self.attack = attack
         self.defence = defence
         self.tactic = tactic
         self.koti = koti
+
+
+    

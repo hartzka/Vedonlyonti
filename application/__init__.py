@@ -32,6 +32,7 @@ from application.tilitapahtuma import models
 from application.tilitapahtuma import views
 
 from application.veto import models
+from application.veto import views
 
 from application.laji import models
 

@@ -4,9 +4,11 @@ from flask_login import login_user, logout_user
 from application import app, db
 from application.auth.models import User
 from application.auth.forms import LoginForm
+import random
 
 @app.route("/auth/login", methods = ["GET", "POST"])
 def auth_login():
+    print(max(float("%.2f" % (0.2 + random.random()*0.4 - 0.2)),1.01))
     if request.method == "GET":
         return render_template("auth/loginform.html", form = LoginForm())
 
@@ -29,7 +31,7 @@ def auth_logout():
 @app.route("/auth/new", methods = ["GET", "POST"])
 def auth_new():
     if request.method == "GET":
-        return render_template("auth/new.html", form = LoginForm())
+        return render_template("auth/new.html", form=LoginForm())
 
     form = LoginForm(request.form)
     # mahdolliset validoinnit

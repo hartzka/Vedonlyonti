@@ -1,11 +1,14 @@
 {% extends "layout.html" %}
 
 {% block body %}
+
 <p>
   Hei! Tämä sovellus on tuotantovaiheessa!
   
 </p>
+{% if current_user.is_authenticated %}
 <a href="{{ url_for('tapahtumat_moniveto') }}">Moniveto</a>
+{% endif %}
 {% endblock %}
 
 

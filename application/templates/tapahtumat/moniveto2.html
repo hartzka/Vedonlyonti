@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<p><b>Veikatut kohteet</b></p>
+<br>
+<form method="POST" action="{{ url_for('create_moniveto') }}">
+  <table>
+    {% for tapahtuma in tapahtumat %}
+    
+              <tr>
+          <td>{{ tapahtuma.koti }}</td>
+          <td>{{ tapahtuma.vieras }}</td>
+          <td>{{ tapahtuma.laji }}</td>
+          <td>{{ tapahtuma.kerroin }}</td>
+          <td>{{ tapahtuma.date_expire }}</td>
+          <td>{{ tapahtuma.veto }}</td>
+          
+          </tr>
+      {% endfor %}
+      <td>{{ form.panos.label }}</td>
+      <td>{{ form.panos }}</td>
+      <td></td>
+      <p>Kokonaiskerroin:</p>
+      <td>{{ kerroin }}</td>
+          <tr>
+            <td colspan="2">
+        <input type="submit" value="Vahvista veikkaus"/>
+            </td>
+          </tr>
+      </form>
+</table>     
+<a href="{{ url_for('index') }}">Valikkoon</a>
+{% endblock %}

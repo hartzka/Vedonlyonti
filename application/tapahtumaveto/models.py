@@ -1,5 +1,6 @@
 from application import db
 from application.models import Base
+from sqlalchemy.sql import text
 
 class Tapahtumaveto(Base):
     
@@ -17,3 +18,15 @@ class Tapahtumaveto(Base):
         self.veto_id = veto_id
         self.tapahtuma_id = tapahtuma_id
         
+    
+    @staticmethod
+    def haeVedot(veto_id):
+        stmt = text("SELECT id, veikkaus, name, tapahtuma_id FROM tapahtumaveto"
+                     " WHERE tapahtumaveto.veto_id = :id"
+                     ).params(id=veto_id)
+        res = db.engine.execute(stmt)
+
+        response = []
+        for row in res:
+            response.append({"id":row[0], "veikkaus":row[1], "name":row[2], "tapahtuma_id":row[3]})
+        return response

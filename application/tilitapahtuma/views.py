@@ -41,7 +41,7 @@ def tilitapahtuma_pelitilille():
 
         return render_template("tilitapahtumat/new.html", tilisiirtoform = form, pankkisiirtoform = PankkisiirtoForm())
 
-    t = Tilitapahtuma(form.tilisiirto.data)
+    t = Tilitapahtuma("Siirto pelitilille", form.tilisiirto.data)
     t.account_id = current_user.id
     current_user.rahat += form.tilisiirto.data
 
@@ -54,10 +54,10 @@ def tilitapahtuma_pelitilille():
 def tilitapahtuma_pankkitilille():
     form = PankkisiirtoForm(request.form)
 
-    if not form.validate() or form.pankkisiirto.data > current_user.rahat | form.pankkisiirto.data <= 0:
+    if not form.validate() or form.pankkisiirto.data > current_user.rahat or form.pankkisiirto.data <= 0:
         return render_template("tilitapahtumat/new.html", pankkisiirtoform = form, tilisiirtoform = TilisiirtoForm())
 
-    t = Tilitapahtuma(-form.pankkisiirto.data)
+    t = Tilitapahtuma("Siirto pankkitilille", form.pankkisiirto.data*(-1))
     t.account_id = current_user.id
     current_user.rahat -= form.pankkisiirto.data
 

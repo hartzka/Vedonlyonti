@@ -17,11 +17,13 @@
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
               {% if current_user.is_authenticated %}
-            <a class="nav-link" href="{{ url_for('tilitapahtumat_index') }} ">Rahat: {{ current_user.rahat }}</a>
+            <a class="nav-link" href="{{ url_for('tilitapahtumat_index') }} ">Rahat: {{ current_user.getRahat() }}</a>
           {% endif %}
           </li>
           <li class="nav-item">
-            
+            {% if current_user.is_authenticated %}
+            <a class="nav-link" href="{{ url_for('vedot_index') }} ">Omat vedot</a>
+          {% endif %}
           </li>
         </ul>
         <div class="form-inline mt-2 mt-md-0">

@@ -3,16 +3,48 @@
 {% block body %}
 <p><b>Monivetokohteet</b></p>
 <br>
-{% for tapahtuma in tapahtumat %}
+<form method="POST" action="{{ url_for('ready_moniveto') }}">
+  <table>
+
         <tr>
-            <td><a href="{{ url_for('index') }}">Veikkaa</a></td>
-          <td>{{ tapahtuma.koti }}</td>
-          <td>{{ tapahtuma.vieras }}</td>
-          <td>{{ tapahtuma.laji }}</td>
-          <td>{{ tapahtuma.kerroin }}</td>
-          <td>{{ tapahtuma.date_expire }}</td>
+          <td>{{ tapahtuma1.koti }}</td>
+          <td>{{ tapahtuma1.vieras }}</td>
+          <td>{{ tapahtuma1.laji }}</td>
+          <td>1: {{ tapahtuma1.kerroin1 }}</td>
+          <td>X: {{ tapahtuma1.kerroinX }}</td>
+          <td>2: {{ tapahtuma1.kerroin2 }}</td>
+          <td>{{ tapahtuma1.date_expire }}</td>
+          <td>{{ form.veto1 }}</td>
           </tr>
-          <br>
-          {% endfor %}
+          
+          <tr>
+              <td>{{ tapahtuma2.koti }}</td>
+              <td>{{ tapahtuma2.vieras }}</td>
+              <td>{{ tapahtuma2.laji }}</td>
+              <td>1: {{ tapahtuma2.kerroin1 }}</td>
+              <td>X: {{ tapahtuma2.kerroinX }}</td>
+              <td>2: {{ tapahtuma2.kerroin2 }}</td>
+              <td>{{ tapahtuma2.date_expire }}</td>
+              <td>{{ form.veto2 }}</td>
+              </tr>
+
+              <tr>
+          <td>{{ tapahtuma3.koti }}</td>
+          <td>{{ tapahtuma3.vieras }}</td>
+          <td>{{ tapahtuma3.laji }}</td>
+          <td>1: {{ tapahtuma3.kerroin1 }}</td>
+          <td>X: {{ tapahtuma3.kerroinX }}</td>
+          <td>2: {{ tapahtuma3.kerroin2 }}</td>
+          <td>{{ tapahtuma3.date_expire }}</td>
+          <td>{{ form.veto3 }}</td>
+          </tr>
+      
+          <tr>
+            <td colspan="2">
+        <input type="submit" value="Veikkaa"/>
+            </td>
+          </tr>
+      </form>
+</table>     
 <a href="{{ url_for('index') }}">Valikkoon</a>
 {% endblock %}

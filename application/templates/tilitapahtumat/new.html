@@ -3,12 +3,13 @@
 {% block body %}
 <table>
     {% if current_user.is_authenticated %}
-    <p>Rahat: {{ current_user.rahat}}</p>
+    <p>Rahat: {{ current_user.getRahat()}}</p>
     <td></td>
     {% endif %}
 {% for tapahtuma in tilitapahtumat %}
         <tr>
           <td>{{ tapahtuma.date_created }}</td>
+          <td>{{ tapahtuma.info }}</td>
           <td>{{ tapahtuma.siirto }}</td>
           </tr>
           {% endfor %}

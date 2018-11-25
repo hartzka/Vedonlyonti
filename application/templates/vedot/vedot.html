@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<table>
+    
+{% for veto in vedot %}
+        <tr>
+            <td><b>{{ veto.nimi }}</td>
+            <td>
+            {% if veto.active == 0 %}
+            <form method="POST" action="{{ url_for('delete_veto', veto_id=veto.id) }}">
+                <input type="submit" value="Poista veto"/>
+                  </form>
+                  {% endif %}
+                  </td>
+        </tr>
+            {% for tapahtuma in veto.tapahtumavedot %}
+            <tr>
+          <td>{{ tapahtuma.koti }} - {{ tapahtuma.vieras }}     {{ tapahtuma.veikkaus }}    {{ tapahtuma.tulos }}</td>
+          <td></td>
+          </tr>
+          {% endfor %}
+          <tr>
+          <td>Panos: {{ veto.panos }}</td>
+          <br>
+          <td>Kokonaiskerroin: {{ veto.kerroin }}</td>
+          <td>Ratkeaa: {{ veto.ratkeaa }}</td>
+          </tr>
+          {% endfor %}
+          </table>
+
+<a href="{{ url_for('index') }}">Valikkoon</a>
+
+{% endblock %}
