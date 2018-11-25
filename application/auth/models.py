@@ -45,7 +45,7 @@ class User(Base):
 
         response = []
         for row in res:
-            time = str(datetime.strptime(row[1], '%Y-%m-%d %H:%M:%S.%f'))
+            time = str(datetime.strptime(str(row[1]), '%Y-%m-%d %H:%M:%S.%f'))
             time = time[0:16]
             response.append({"siirto":row[0], "date_created":time, "info":row[3]})
 
@@ -95,7 +95,7 @@ class User(Base):
                 if (len(row3) > 4):
                     if (str(row3[4]) == "1"):
                         active = 1  
-                    uratk = datetime.strptime(row3[3], '%Y-%m-%d %H:%M:%S.%f')
+                    uratk = datetime.strptime(str(row3[3]), '%Y-%m-%d %H:%M:%S.%f')
                     if uratk > ratk:
                         ratk = uratk
                 v.append({"veikkaus":row2[1], "koti":row3[0], "vieras":row3[1], "tulos":row3[2]})

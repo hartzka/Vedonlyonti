@@ -50,7 +50,7 @@ def tapahtumat_moniveto():
     tapahtumajoukkueet = []
     tapahtumat = []
     for row in res:
-        time = datetime.strptime(row[1], '%Y-%m-%d %H:%M:%S.%f')
+        time = datetime.strptime(str(row[1]), '%Y-%m-%d %H:%M:%S.%f')
         if (time < present):
             stmt2 = text("SELECT id, koti, attack, defence, tactic FROM tapahtumajoukkue WHERE tapahtuma_id = :id"
             ).params(id=row[0])

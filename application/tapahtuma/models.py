@@ -194,7 +194,7 @@ class Tapahtuma(Base):
         response = []
         
         for row in res:
-            d = datetime.strptime(row[1], '%Y-%m-%d %H:%M:%S.%f')
+            d = datetime.strptime(str(row[1]), '%Y-%m-%d %H:%M:%S.%f')
             
         
             if(d < present):
@@ -235,7 +235,7 @@ class Tapahtuma(Base):
         response = []
         
         for row in res:
-            d = str(datetime.strptime(row[7], '%Y-%m-%d %H:%M:%S.%f'))
+            d = str(datetime.strptime(str(row[7]), '%Y-%m-%d %H:%M:%S.%f'))
             d = d[0:16]
             response.append({"id":row[0], "koti":row[1], "vieras":row[2], "laji":haeLaji(row[3]), "kerroin1":row[4], "kerroin2":row[5], "kerroinX":row[6], "date_expire":d})
                 
