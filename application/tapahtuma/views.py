@@ -174,6 +174,7 @@ def tapahtumat_moniveto():
         row["date_expire"], True)
         t.id = row["id"]
         db.session().add(t)
+        db.session().commit()
         db.session().add(tj1)
         db.session().add(tj2)
         db.session().commit()
