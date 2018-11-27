@@ -45,7 +45,7 @@ def tapahtumat_moniveto():
         ).params(id = tid)
         db.engine.execute(stmt)
 
-    stmt = text("SELECT id, date_expire FROM tapahtuma WHERE active = True")
+    stmt = text("SELECT id, date_expire FROM tapahtuma WHERE active = 1")
     res = db.engine.execute(stmt)
     tapahtumajoukkueet = []
     tapahtumat = []
@@ -109,8 +109,12 @@ def tapahtumat_moniveto():
             if (tulos == "kesken" or tulos == ""):
                 oikein = False
                 break
+            print(tulos)
+            print("Tulos")
+            
             if(tveto["name"] == "moniveto"):
                 koti = 0
+                vieras = 0
                 if (tulos[1]=="-"):
                     koti = int(tulos[0])
                     if (len(tulos) > 3):
@@ -124,6 +128,8 @@ def tapahtumat_moniveto():
                     else:
                         vieras = int(tulos[3])  
                 veikkaus = tveto["veikkaus"]
+                print(veikkaus)
+                print("veikkaus")
                 
                 if (koti > vieras and veikkaus != "1"):
                     oikein = False
@@ -139,7 +145,7 @@ def tapahtumat_moniveto():
             panos = int(veto["panos"])
             voitto = kerroin*panos
             voitto = ("%.2f" % voitto)
-    
+            
             t = Tilitapahtuma("Pelivoitto", voitto)
             t.account_id = current_user.id
             rahat = current_user.getRahat()
@@ -178,7 +184,7 @@ def tapahtumat_moniveto():
         db.session().add(tj1)
         db.session().add(tj2)
         db.session().commit()
-        stmt = text("UPDATE tapahtuma SET active = False WHERE id = :id"
+        stmt = text("UPDATE tapahtuma SET active = 0 WHERE id = :id"
                      ).params(id=row["old"])
         db.engine.execute(stmt)
         
