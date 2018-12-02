@@ -77,6 +77,8 @@ class User(Base):
             v = []
             row3 = []
             active = 0
+            ker = row[2]
+            ker = ("%.2f" % ker)
             stmt2 = text("SELECT name, veikkaus, veto_id, tapahtuma_id FROM tapahtumaveto"
                      " WHERE tapahtumaveto.veto_id = :id"
                      ).params(id=row[0]) #veto.id
@@ -115,7 +117,50 @@ class User(Base):
                         ratk += ", ei voittoa"
             else :
                 ratk = str(str(ratk)[0:16])
+                
+            response.append({"id":row[0], "nimi": nimi, "tapahtumavedot": v, "panos":row[1] , "kerroin":ker, "ratkeaa":ratk, "active":active})   
+            
+        return response
+    
+    @staticmethod
+    def find_veto_byId(user_id, veto_id):
+        #lista[veto]
+        #veto = lista[nimi, veikkaus, koti, vieras, tulos, panos, kerroin, ratkeaa]
+        stmt = text("SELECT id, panos, kerroin, voitto FROM veto"
+                     " WHERE veto.account_id = :user_id"
+                     " AND veto.id = :veto_id"
+                     ).params(user_id=user_id, veto_id=veto_id)
+        res = db.engine.execute(stmt)
+
+        response = []
+        for row in res:
+            v = []
+            row3 = []
+            active = 0
+            stmt2 = text("SELECT name, veikkaus, veto_id, tapahtuma_id FROM tapahtumaveto"
+                     " WHERE tapahtumaveto.veto_id = :id"
+                     ).params(id=row[0]) #veto.id
+            res2 = db.engine.execute(stmt2)
+            
+            nimi = ""
+            for row2 in res2:
+                nimi = row2[0]
+                stmt3 = text("SELECT koti, vieras, tulos, date_expire, active FROM tapahtuma"
+                     " WHERE tapahtuma.id = :id"
+                     ).params(id=row2[3]) #tapahtumaveto.tapahtuma_id
+                res3 = db.engine.execute(stmt3)
+                
+                for data in res3:
+                    row3 = data
+                if (len(row3) > 4):
+                    if (str(row3[4]) == "1"):
+                        active = 1  
+                    
+                v.append({"veikkaus":row2[1], "koti":row3[0], "vieras":row3[1], "tulos":row3[2]})
+
+            ratk = "kesken"    
             response.append({"id":row[0], "nimi": nimi, "tapahtumavedot": v, "panos":row[1] , "kerroin":row[2] , "ratkeaa":ratk, "active":active})   
             
         return response
+    
     

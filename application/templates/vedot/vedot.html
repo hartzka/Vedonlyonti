@@ -13,6 +13,13 @@
                   </form>
                   {% endif %}
                   </td>
+                  <td>
+                    {% if veto.active == 1 %}
+                    <form method="POST" action="{{ url_for('update_veto', veto_id=veto.id, name=veto.nimi) }}">
+                        <input type="submit" value="Muuta vetoa"/>
+                          </form>
+                          {% endif %}
+                          </td>
         </tr>
             {% for tapahtuma in veto.tapahtumavedot %}
             <tr>

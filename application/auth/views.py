@@ -18,7 +18,7 @@ def auth_login():
     user = User.query.filter_by(username=form.username.data, password=form.password.data).first()
     if not user:
         return render_template("auth/loginform.html", form = form,
-                               error = "No such username or password")
+                               error = "Käyttäjätunnusta tai salasanaa ei löydy")
 
     login_user(user)
     return redirect(url_for("index"))    
@@ -34,7 +34,8 @@ def auth_new():
         return render_template("auth/new.html", form=LoginForm())
 
     form = LoginForm(request.form)
-    # mahdolliset validoinnit
+    if not form.validate():
+        return render_template("auth/new.html", form = form, error = "Minimipituus 2")
 
     user = User.query.filter_by(username=form.username.data, password=form.password.data).first()
     if not user:

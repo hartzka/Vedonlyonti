@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<p><b>Tulosvetokohteet</b></p>
+<br>
+  <table>
+
+        <tr>
+          <td>{{ tapahtuma1.koti }}</td>
+          <td>{{ tapahtuma1.vieras }}</td>
+          <td>{{ tapahtuma1.laji }}</td>
+          <td>{{ tapahtuma1.date_expire }}</td>
+          </tr>
+          <form method="POST" action="{{ url_for('ready_tulosveto', tapahtuma_id=tapahtuma1.id) }}">
+          <tr>
+                <td colspan="2">
+            <input type="submit" value="Veikkaa"/>
+                </td>
+              </tr>
+          </form>
+          
+          <tr>
+              <td>{{ tapahtuma2.koti }}</td>
+              <td>{{ tapahtuma2.vieras }}</td>
+              <td>{{ tapahtuma2.laji }}</td>
+              <td>{{ tapahtuma2.date_expire }}</td>
+              </tr>
+              <form method="POST" action="{{ url_for('ready_tulosveto', tapahtuma_id=tapahtuma2.id) }}">
+              <tr>
+                    <td colspan="2">
+                <input type="submit" value="Veikkaa"/>
+                    </td>
+                  </tr>
+              </form>
+              <tr>
+          <td>{{ tapahtuma3.koti }}</td>
+          <td>{{ tapahtuma3.vieras }}</td>
+          <td>{{ tapahtuma3.laji }}</td>
+          <td>{{ tapahtuma3.date_expire }}</td>
+          </tr>
+          <form method="POST" action="{{ url_for('ready_tulosveto', tapahtuma_id=tapahtuma3.id) }}">
+          <tr>
+                <td colspan="2">
+            <input type="submit" value="Veikkaa"/>
+                </td>
+              </tr>
+          </form>
+          
+</table>     
+<a href="{{ url_for('index') }}">Valikkoon</a>
+{% endblock %}

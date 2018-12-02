@@ -22,8 +22,6 @@ def haeVapaatJoukkueet():
             response.append({"id":row[0], "nimi":row[1], "attack":row[2], "defence":row[3], "tactic":row[4], "laji_id":row[5]})
         return response
 
-
-
 def arvoUusiTapahtuma(oldId):
         joukkueet = haeVapaatJoukkueet()
         result = []
@@ -177,6 +175,62 @@ class Tapahtuma(Base):
 
 
     @staticmethod
+    def haeTulosvetokerroin(tapahtuma_id, veikkaus):
+
+        home_motivation = 1
+        koti = 1
+        home_attack = 0
+        away_attack = 0
+        home_defence = 0
+        away_defence = 0
+        home_tactic = 0
+        away_tactic = 0
+
+        stmt = text("SELECT attack, defence, tactic, koti FROM tapahtumajoukkue"
+                    " WHERE tapahtuma_id = :id"
+                    ).params(id=tapahtuma_id)
+        res = db.engine.execute(stmt)
+        for row in res:
+            if(row[3]==1):
+                home_attack = row[0]
+                home_tactic = row[2]
+                home_defence = row[1]
+            else:
+                away_defence = row[1]
+                away_attack = row[0]
+                away_tactic = row[2]
+                
+        home_motivation = int(random.gauss(0, 7)) + int(random.gauss(3, 3))    
+        away_motivation = int(random.gauss(0, 7))
+
+        home_attack+=home_motivation
+        home_defence+=home_motivation
+        away_attack+=away_motivation
+        away_defence+=away_motivation
+        veikkaus_count = 0
+
+        for i in range(100000):
+            home_goals = -1
+            while (home_goals < 0):
+                home_goals = int(random.gauss(2+(home_attack-away_defence)/10, 3)) + int(random.gauss(home_tactic/100, 1))
+
+            away_goals = -1
+            while (away_goals < 0):
+                away_goals = int(random.gauss(2+(away_attack-home_defence)/10, 3)) + int(random.gauss(away_tactic/100, 1))
+
+            if (home_goals >= 10):
+                home_goals = "10+"
+            if (away_goals >= 10):
+                away_goals = "10+"
+            tulos = str(home_goals) + "-" + str(away_goals)
+            if (tulos == veikkaus):
+                veikkaus_count = veikkaus_count+1
+
+        kerroin = max(float("%.2f" % (98000/veikkaus_count + random.random()*0.4 - 0.2)),1.01)
+        return kerroin
+        
+
+    @staticmethod
     def haeMonivetoTapahtuma():
         
         #palauttaa listan monivetotapahtumista (3) with koti, vieras, laji, kerroin, date_expire
@@ -240,6 +294,62 @@ class Tapahtuma(Base):
             response.append({"id":row[0], "koti":row[1], "vieras":row[2], "laji":haeLaji(row[3]), "kerroin1":row[4], "kerroin2":row[5], "kerroinX":row[6], "date_expire":d})
                 
                 
+        return response
+    
+    @staticmethod
+    def haeTulosvetoTapahtumaById(tapahtuma_id):
+        
+        #palauttaa listan monivetotapahtumista (3) with koti, vieras, laji, kerroin, date_expire
+        #laittaa expiredeiksi tapahtumat, jotka menneet umpeen
+        good_events = 0
+        present = datetime.now()
+
+        stmt = text("SELECT tapahtuma.id, koti, vieras, laji_id, kerroin1, kerroin2, kerroinx, date_expire"
+                    " FROM tapahtuma, laji"
+                    " WHERE active = 1"
+                    " AND laji.id = tapahtuma.laji_id"
+                    " AND tapahtuma.id = :id"
+                     ).params(id=tapahtuma_id)
+        res = db.engine.execute(stmt)
+
+        response = []
+        
+        for row in res:
+            d = str(datetime.strptime(str(row[7]), '%Y-%m-%d %H:%M:%S.%f'))
+            d = d[0:16]
+            response.append({"id":row[0], "koti":row[1], "vieras":row[2], "laji":haeLaji(row[3]), "kerroin1":row[4], "kerroin2":row[5], "kerroinX":row[6], "date_expire":d})
+                
+                
+        return response
+
+    @staticmethod
+    def haeMonivetoTapahtumatByVetoId(veto_id):
+        
+        #palauttaa listan monivetotapahtumista (3) with koti, vieras, laji, kerroin, date_expire
+        #laittaa expiredeiksi tapahtumat, jotka menneet umpeen
+        good_events = 0
+        present = datetime.now()
+
+        stmt = text("SELECT veikkaus, tapahtuma_id, id"
+                    " FROM tapahtumaveto"
+                    " WHERE veto_id = :id"
+                    ).params(id=veto_id)
+        res = db.engine.execute(stmt)
+        response = []
+
+        for row in res:
+            stmt2 = text("SELECT tapahtuma.id, koti, vieras, laji_id, kerroin1, kerroin2, kerroinx"
+                    " FROM tapahtuma, laji"
+                    " WHERE tapahtuma.id = :id"
+                    " AND laji.id = tapahtuma.laji_id"
+                     ).params(id=row[1])
+            res2 = db.engine.execute(stmt2)
+
+            for row2 in res2:
+                response.append({"tapahtumaveto_id":row[2], "tapahtuma_id":row2[0], "koti":row2[1], "vieras":row2[2], "laji":haeLaji(row2[3]), "kerroin1":row2[4], "kerroin2":row2[5], "kerroinX":row2[6], "veikkaus":row[0]})
+
+        while(len(response)<3):
+            response.append({"veikkaus":"-", "tapahtumaveto_id":0})        
         return response
     
     @staticmethod

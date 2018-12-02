@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<p><b>Veikatut kohteet:</b></p>
+<br>
+<form method="POST" action="{{ url_for('update_tulosveto', veto_id=veto_id) }}">
+  <table>
+
+        <tr>
+          <td>{{ tapahtuma.koti }}</td>
+          <td>{{ tapahtuma.vieras }}</td>
+          <td>{{ tapahtuma.laji }}</td>
+          </tr>
+          
+          <tr>
+            <td>Koti:{{ form.tulosveto_koti }}</td>
+            <td>Vieras:{{ form.tulosveto_vieras }}</td>
+          </tr>
+          <tr>
+            <td colspan="2">
+        <input type="submit" value="Veikkaa"/>
+            </td>
+          </tr>
+      </form>
+</table>     
+<a href="{{ url_for('index') }}">Valikkoon</a>
+{% endblock %}

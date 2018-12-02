@@ -1,9 +1,9 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<p><b>Monivetokohteet</b></p>
+<p><b>Veikatut kohteet:</b></p>
 <br>
-<form method="POST" action="{{ url_for('ready_moniveto') }}">
+<form method="POST" action="{{ url_for('update_moniveto', veto_id=veto_id) }}">
   <table>
 
         <tr>
@@ -13,10 +13,10 @@
           <td>1: {{ tapahtuma1.kerroin1 }}</td>
           <td>X: {{ tapahtuma1.kerroinX }}</td>
           <td>2: {{ tapahtuma1.kerroin2 }}</td>
-          <td>{{ tapahtuma1.date_expire }}</td>
           <td>{{ form.moniveto1 }}</td>
           </tr>
           
+          {% if tapahtuma2.laji %}
           <tr>
               <td>{{ tapahtuma2.koti }}</td>
               <td>{{ tapahtuma2.vieras }}</td>
@@ -24,10 +24,11 @@
               <td>1: {{ tapahtuma2.kerroin1 }}</td>
               <td>X: {{ tapahtuma2.kerroinX }}</td>
               <td>2: {{ tapahtuma2.kerroin2 }}</td>
-              <td>{{ tapahtuma2.date_expire }}</td>
               <td>{{ form.moniveto2 }}</td>
               </tr>
+              {% endif %}
 
+            {% if tapahtuma3.laji %}
               <tr>
           <td>{{ tapahtuma3.koti }}</td>
           <td>{{ tapahtuma3.vieras }}</td>
@@ -35,10 +36,9 @@
           <td>1: {{ tapahtuma3.kerroin1 }}</td>
           <td>X: {{ tapahtuma3.kerroinX }}</td>
           <td>2: {{ tapahtuma3.kerroin2 }}</td>
-          <td>{{ tapahtuma3.date_expire }}</td>
           <td>{{ form.moniveto3 }}</td>
           </tr>
-      
+          {% endif %}
           <tr>
             <td colspan="2">
         <input type="submit" value="Veikkaa"/>
