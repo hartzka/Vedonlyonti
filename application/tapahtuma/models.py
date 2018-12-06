@@ -387,7 +387,7 @@ class Tapahtuma(Base):
                     " WHERE active = True"
                     " AND laji.id = tapahtuma.laji_id"
                     " AND live = :live"
-                    " GROUP BY date_expire,tapahtuma.id,laji_id ORDER BY laji.id"
+                    " GROUP BY date_expire,tapahtuma.id,laji.id ORDER BY laji.id"
                      ).params(live=live)
         res = db.engine.execute(stmt)
 
