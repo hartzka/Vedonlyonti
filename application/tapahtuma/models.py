@@ -269,7 +269,7 @@ class Tapahtuma(Base):
 
         stmt = text("SELECT tapahtuma.id, date_expire, live"
                     " FROM tapahtuma, laji"
-                    " WHERE active = 1"
+                    " WHERE active = True"
                     " AND laji.id = tapahtuma.laji_id"
                     " AND live = :live"
                      ).params(live=live)
@@ -310,7 +310,7 @@ class Tapahtuma(Base):
 
         stmt = text("SELECT tapahtuma.id, koti, vieras, laji_id, kerroin1, kerroin2, kerroinx, date_expire, live"
                     " FROM tapahtuma, laji"
-                    " WHERE active = 1"
+                    " WHERE active = True"
                     " AND laji.id = tapahtuma.laji_id"
                     " AND live = :live"
                      ).params(live=live)
@@ -332,7 +332,7 @@ class Tapahtuma(Base):
         #ei koripalloa tulosvetoon!
         stmt = text("SELECT tapahtuma.id, koti, vieras, laji_id, kerroin1, kerroin2, kerroinx, date_expire"
                     " FROM tapahtuma, laji"
-                    " WHERE active = 1"
+                    " WHERE active = True"
                     " AND laji.id = tapahtuma.laji_id"
                     " AND laji.id NOT IN (3)"
                      )
@@ -356,7 +356,7 @@ class Tapahtuma(Base):
         #ei koripalloa tulosvetoon!
         stmt = text("SELECT tapahtuma.id, koti, vieras, laji_id, kerroin1, kerroin2, kerroinx, date_expire"
                     " FROM tapahtuma, laji"
-                    " WHERE active = 1"
+                    " WHERE active = True"
                     " AND laji.id = tapahtuma.laji_id"
                     " AND laji.id NOT IN (3)"
                     " GROUP BY date_expire ORDER BY laji.id"
@@ -384,7 +384,7 @@ class Tapahtuma(Base):
 
         stmt = text("SELECT tapahtuma.id, koti, vieras, laji_id, kerroin1, kerroin2, kerroinx, date_expire, live"
                     " FROM tapahtuma, laji"
-                    " WHERE active = 1"
+                    " WHERE active = True"
                     " AND laji.id = tapahtuma.laji_id"
                     " AND live = :live"
                     " GROUP BY date_expire ORDER BY laji.id"
@@ -410,7 +410,7 @@ class Tapahtuma(Base):
 
         stmt = text("SELECT tapahtuma.id, koti, vieras, laji_id, kerroin1, kerroin2, kerroinx, date_expire"
                     " FROM tapahtuma, laji"
-                    " WHERE active = 1"
+                    " WHERE active = True"
                     " AND laji.id = tapahtuma.laji_id"
                     " AND tapahtuma.id = :id"
                      ).params(id=tapahtuma_id)
@@ -459,7 +459,7 @@ class Tapahtuma(Base):
     @staticmethod
     def haeTulos(tapahtuma_id):
         stmt = text("SELECT tulos FROM tapahtuma"
-                     " WHERE active = 1 AND tapahtuma.id = :id"
+                     " WHERE active = True AND tapahtuma.id = :id"
                      ).params(id=tapahtuma_id)
         res = db.engine.execute(stmt)
 
@@ -480,7 +480,7 @@ class Tapahtuma(Base):
             db.engine.execute(stmt)
 
     #tulosten päivitys valmiille tapahtumille
-        stmt = text("SELECT id, date_expire, laji_id FROM tapahtuma WHERE active = 1")
+        stmt = text("SELECT id, date_expire, laji_id FROM tapahtuma WHERE active = True")
         res = db.engine.execute(stmt)
         tapahtumajoukkueet = []
         tapahtumat = []
@@ -535,7 +535,7 @@ class Tapahtuma(Base):
             stm = text("UPDATE tapahtuma SET tulos = :tulos WHERE id = :id"
             ).params(tulos=tapahtuma["tulos"], id=tapahtuma["id"])
             db.engine.execute(stm)
-            stm2 = text("UPDATE tapahtuma SET active = 0 WHERE id = :id"
+            stm2 = text("UPDATE tapahtuma SET active = False WHERE id = :id"
             ).params(id=tapahtuma["id"])
             db.engine.execute(stm2)
 
@@ -637,7 +637,7 @@ class Tapahtuma(Base):
             #turhien tapahtumajoukkueiden poisto
             if (tapahtumat[0][0]["old"] == -1):
                 stmt2 = text("DELETE FROM tapahtumajoukkue WHERE tapahtuma_id NOT IN"
-                " (SELECT id FROM tapahtuma WHERE active = 1)"
+                " (SELECT id FROM tapahtuma WHERE active = True)"
                 )
                 db.engine.execute(stmt2)
                 tapahtumat = Tapahtuma.haeMonivetoTapahtuma(live)
@@ -654,7 +654,7 @@ class Tapahtuma(Base):
             db.session().add(tj1)
             db.session().add(tj2)
             db.session().commit()
-            stmt = text("UPDATE tapahtuma SET active = 0 WHERE id = :id"
+            stmt = text("UPDATE tapahtuma SET active = False WHERE id = :id"
                      ).params(id=row["old"])
             db.engine.execute(stmt)
 
