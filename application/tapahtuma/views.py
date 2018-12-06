@@ -75,7 +75,7 @@ def ready_moniveto(live, sorted):
         return redirect(url_for("tapahtumat_moniveto"))
     
     if (int(sorted)==0):
-        tap = Tapahtuma.haeMonivetoTapahtumat(live)
+        tap = Tapahtuma.haeMonivetoTapahtumat(live==True)
         
     else:
         tap = Tapahtuma.haeMonivetoTapahtumat_groupByLaji(live)
@@ -386,7 +386,7 @@ def update_tulosveto(veto_id):
 
 @app.route("/tapahtuma/moniveto/group/<live>/", methods=["GET", "POST"])
 def group_moniveto_byLaji(live):
-    tapahtumat = Tapahtuma.haeMonivetoTapahtumat_groupByLaji(live)
+    tapahtumat = Tapahtuma.haeMonivetoTapahtumat_groupByLaji(live==True)
     return render_template("tapahtumat/moniveto.html", 
     form=TapahtumaForm(), tapahtuma1=tapahtumat[0], tapahtuma2=tapahtumat[1],
     tapahtuma3=tapahtumat[2], tapahtuma4=tapahtumat[3], 
