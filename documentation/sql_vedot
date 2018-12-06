@@ -1,6 +1,6 @@
-insert into laji(nimi) values ('jalkapallo');
-insert into laji(nimi) values ('kiekko');
-insert into laji(nimi) values ('koripallo');
+insert into laji(id,nimi) values (1,'jalkapallo');
+insert into laji(id,nimi) values (2,'kiekko');
+insert into laji(id,nimi) values (3,'koripallo');
 
 insert into joukkue(nimi, attack, defence, tactic, laji_id) values ('Hjk', 64, 63, 58, 1);
 insert into joukkue(nimi, attack, defence, tactic, laji_id) values ('Rops', 55, 60, 55, 1);
