@@ -119,7 +119,8 @@ class User(Base):
                 ratk = str(str(ratk)[0:16])
                 
             response.append({"id":row[0], "nimi": nimi, "tapahtumavedot": v, "panos":row[1] , "kerroin":ker, "ratkeaa":ratk, "active":active})   
-            
+            print(ker)
+            print(active)
         return response
     
     @staticmethod
