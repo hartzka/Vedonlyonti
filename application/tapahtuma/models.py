@@ -359,7 +359,7 @@ class Tapahtuma(Base):
                     " WHERE active = True"
                     " AND laji.id = tapahtuma.laji_id"
                     " AND laji.id NOT IN (3)"
-                    " GROUP BY date_expire ORDER BY laji.id"
+                    " GROUP BY date_expire, tapahtuma.id, laji.id ORDER BY laji.id"
                      )
         res = db.engine.execute(stmt)
 

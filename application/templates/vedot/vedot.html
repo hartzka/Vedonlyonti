@@ -78,14 +78,14 @@
           
             <td><b>{{ veto.nimi }}</td>
               <td>
-              {% if veto.active == 0 %}
+              {% if veto.active == False %}
               <form method="POST" action="{{ url_for('delete_veto', veto_id=veto.id) }}">
                   <input type="submit" class="btn-poista" value="Poista veto"/>
                     </form>
                     {% endif %}
                     </td>
                     <td>
-                      {% if veto.active == 1 %}
+                      {% if veto.active == True %}
                       <form method="POST" action="{{ url_for('update_veto', veto_id=veto.id, name=veto.nimi) }}">
                           <input type="submit" class="btn-blue" value="Muuta vetoa"/>
                             </form>
