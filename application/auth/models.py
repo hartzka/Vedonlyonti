@@ -76,7 +76,7 @@ class User(Base):
         for row in res:
             v = []
             row3 = []
-            active = 0
+            active = 1
             ker = row[2]
             ker = ("%.2f" % ker)
             stmt2 = text("SELECT name, veikkaus, veto_id, tapahtuma_id FROM tapahtumaveto"
@@ -95,8 +95,8 @@ class User(Base):
                 for data in res3:
                     row3 = data
                 if (len(row3) > 4):
-                    if (str(row3[4]) == "1"):
-                        active = 1  
+                    if (str(row3[4]) == "0"):
+                        active = 0  
                     uratk = datetime.strptime(str(row3[3]), '%Y-%m-%d %H:%M:%S.%f')
                     if uratk > ratk:
                         ratk = uratk

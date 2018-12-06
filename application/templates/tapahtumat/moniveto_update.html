@@ -1,50 +1,149 @@
 {% extends "layout.html" %}
 
+
 {% block body %}
+<style>
+.btn-green {
+    background-color: #45622A;
+    border: 3px solid #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    display: inline-block;
+    font-size: 1.4em;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.13), 0 3px 10px 0 rgba(0,0,0,0.11);
+}
+.btn-green:hover {
+    background-color: #4CAF50;
+    color: white;
+    box-shadow: 0 3px 6px 0 rgba(0,0,0,0.2), 0 2px 6px 0 rgba(0,0,0,0.18);
+}
+</style>
 <p><b>Veikatut kohteet:</b></p>
 <br>
 <form method="POST" action="{{ url_for('update_moniveto', veto_id=veto_id) }}">
   <table>
 
         <tr>
-          <td>{{ tapahtuma1.koti }}</td>
-          <td>{{ tapahtuma1.vieras }}</td>
-          <td>{{ tapahtuma1.laji }}</td>
+            <td>{{ tapahtuma1.laji }}</td>
+          <th>{{ tapahtuma1.koti }}-</td>
+          <th>{{ tapahtuma1.vieras }}</td>
+            <tr></tr>
           <td>1: {{ tapahtuma1.kerroin1 }}</td>
+          <tr></tr>
           <td>X: {{ tapahtuma1.kerroinX }}</td>
+          <tr></tr>
           <td>2: {{ tapahtuma1.kerroin2 }}</td>
+          <tr></tr>
           <td>{{ form.moniveto1 }}</td>
           </tr>
+          <td>--------------------------------</td>
           
           {% if tapahtuma2.laji %}
           <tr>
-              <td>{{ tapahtuma2.koti }}</td>
-              <td>{{ tapahtuma2.vieras }}</td>
               <td>{{ tapahtuma2.laji }}</td>
+              <th>{{ tapahtuma2.koti }}-</td>
+              <th>{{ tapahtuma2.vieras }}</td>
+              <tr></tr>
               <td>1: {{ tapahtuma2.kerroin1 }}</td>
+              <tr></tr>
               <td>X: {{ tapahtuma2.kerroinX }}</td>
+              <tr></tr>
               <td>2: {{ tapahtuma2.kerroin2 }}</td>
+              <tr></tr>
               <td>{{ form.moniveto2 }}</td>
               </tr>
+              <td>--------------------------------</td>
               {% endif %}
 
             {% if tapahtuma3.laji %}
               <tr>
-          <td>{{ tapahtuma3.koti }}</td>
-          <td>{{ tapahtuma3.vieras }}</td>
-          <td>{{ tapahtuma3.laji }}</td>
+              <td>{{ tapahtuma3.laji }}</td>
+          <th>{{ tapahtuma3.koti }}-</td>
+          <th>{{ tapahtuma3.vieras }}</td>
+            <tr></tr>
           <td>1: {{ tapahtuma3.kerroin1 }}</td>
+          <tr></tr>
           <td>X: {{ tapahtuma3.kerroinX }}</td>
+          <tr></tr>
           <td>2: {{ tapahtuma3.kerroin2 }}</td>
+          <tr></tr>
           <td>{{ form.moniveto3 }}</td>
           </tr>
+          <td>--------------------------------</td>
+          {% endif %}
+
+          {% if tapahtuma4.laji %}
+              <tr>
+              <td>{{ tapahtuma4.laji }}</td>
+          <th>{{ tapahtuma4.koti }}-</th>
+          <th>{{ tapahtuma4.vieras }}</th>
+          <tr></tr>
+          <td>1: {{ tapahtuma4.kerroin1 }}</td>
+          <tr></tr>
+          <td>X: {{ tapahtuma4.kerroinX }}</td>
+          <tr></tr>
+          <td>2: {{ tapahtuma4.kerroin2 }}</td>
+          <tr></tr>
+          <td>{{ form.moniveto4 }}</td>
+          </tr>
+          <td>--------------------------------</td>
+          {% endif %}
+
+          {% if tapahtuma5.laji %}
+              <tr>
+                  <td>{{ tapahtuma5.laji }}</td>
+          <th>{{ tapahtuma5.koti }}-</th>
+          <th>{{ tapahtuma5.vieras }}</th>
+          <tr></tr>
+          <td>1: {{ tapahtuma5.kerroin1 }}</td>
+          <tr></tr>
+          <td>X: {{ tapahtuma5.kerroinX }}</td>
+          <tr></tr>
+          <td>2: {{ tapahtuma5.kerroin2 }}</td>
+          <tr></tr>
+          <td>{{ form.moniveto5 }}</td>
+          </tr>
+          <td>--------------------------------</td>
+          {% endif %}
+
+          {% if tapahtuma6.laji %}
+              <tr>
+                  <td>{{ tapahtuma6.laji }}</td>
+          <th>{{ tapahtuma6.koti }}-</th>
+          <th>{{ tapahtuma6.vieras }}</th>
+          
+          <tr></tr>
+          <td>1: {{ tapahtuma6.kerroin1 }}</td>
+          <tr></tr>
+          <td>X: {{ tapahtuma6.kerroinX }}</td>
+          <tr></tr>
+          <td>2: {{ tapahtuma6.kerroin2 }}</td>
+          <tr></tr>
+          <td>{{ form.moniveto6 }}</td>
+          </tr>
+          <td>--------------------------------</td>
           {% endif %}
           <tr>
             <td colspan="2">
-        <input type="submit" value="Veikkaa"/>
+        <input type="submit" class="btn-green" value="Veikkaa"/>
             </td>
           </tr>
       </form>
 </table>     
+<table>
+<tr>
+  <tr></tr>
+  <td>1 = Kotivoitto</td>
+  <tr></tr>
+  <td>2 = Vierasvoitto</td>
+  <tr></tr>
+  <td>X = Tasapeli</td>
+
+</tr>
+</table>
+
 <a href="{{ url_for('index') }}">Valikkoon</a>
 {% endblock %}

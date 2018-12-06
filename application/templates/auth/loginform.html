@@ -1,42 +1,83 @@
 {% extends "layout.html" %}
 
 {% block body %}
-{{ error }}
+<style>
+.btn-blue {
+      background-color: #1255AA;
+      border: 3px solid #008CBA;
+      color: white;
+      padding: 10px 20px;
+      text-align: center;
+      display: inline-block;
+      font-size: 1.7em;
+      -webkit-transition-duration: 0.3s;
+      transition-duration: 0.3s;
+      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.13), 0 3px 10px 0 rgba(0,0,0,0.11);
+  }
+  .btn-blue:hover {
+      background-color: #008CBA;
+      color: white;
+      box-shadow: 0 3px 6px 0 rgba(0,0,0,0.2), 0 2px 6px 0 rgba(0,0,0,0.18);
+  }
+  .btn-green {
+    background-color: #45622A;
+    border: 3px solid #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    display: inline-block;
+    font-size: 1.4em;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.13), 0 3px 10px 0 rgba(0,0,0,0.11);
+}
+.btn-green:hover {
+    background-color: #4CAF50;
+    color: white;
+    box-shadow: 0 3px 6px 0 rgba(0,0,0,0.2), 0 2px 6px 0 rgba(0,0,0,0.18);
+}
+  </style>
+<b>{{ error }}</b>
 <form method="POST" action="{{ url_for('auth_login') }}">
   <table>
     <tr>
       <td>
-	{{ form.username.label }}
+	{{ form.tunnus.label }}
       </td>
       <td>
-	{{ form.username }}
+	{{ form.tunnus }}
       </td>
       <td>
             <ul>
-              {% for error in form.name.errors %}
-              <li>{{ error }}</li>
+              {% for error in form.nimi.errors %}
+              <li><b>{{ error }}</b></li>
               {% endfor %}
             </ul>
           </td>
     </tr>
     <tr>
       <td>
-	{{ form.password.label }}
+	{{ form.salasana.label }}
       </td>
       <td>
-	{{ form.password }}
+	{{ form.salasana }}
       </td>
     </tr>
     <tr>
       <td colspan="2">
-	<input type="submit" value="Login"/>
+	<input type="submit" class="btn-green" value="Kirjaudu"/>
       </td>
     </tr>
 </form>
 
-<br>
+<form method="POST" action="{{ url_for('auth_new') }}">
+ <tr>
+<td colspan="2">
+<input type="submit" class="btn-blue" value="Luo uusi käyttäjä"/>
+</td>
+   </tr>
+ </form>
 <td>
 
-<a href="{{ url_for('auth_new') }}">Luo uusi käyttäjä</a>
 </td>
 {% endblock %}

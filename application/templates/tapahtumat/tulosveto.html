@@ -1,50 +1,145 @@
 {% extends "layout.html" %}
 
 {% block body %}
+<style>
+.btn-green {
+    background-color: #45622A;
+    border: 3px solid #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    display: inline-block;
+    font-size: 1.4em;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.13), 0 3px 10px 0 rgba(0,0,0,0.11);
+}
+.btn-green:hover {
+    background-color: #4CAF50;
+    color: white;
+    box-shadow: 0 3px 6px 0 rgba(0,0,0,0.2), 0 2px 6px 0 rgba(0,0,0,0.18);
+}
+.btn-orange {
+    background-color: #DD9900;
+    border: 3px solid #FFA500;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    display: inline-block;
+    font-size: 1.7em;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.13), 0 3px 10px 0 rgba(0,0,0,0.11);
+}
+.btn-orange:hover {
+    background-color: #FFA500;
+    color: white;
+    box-shadow: 0 3px 6px 0 rgba(0,0,0,0.2), 0 2px 6px 0 rgba(0,0,0,0.18);
+}
+</style>
 <p><b>Tulosvetokohteet</b></p>
 <br>
   <table>
-
+        {% if tapahtuma1.koti %}
         <tr>
-          <td>{{ tapahtuma1.koti }}</td>
-          <td>{{ tapahtuma1.vieras }}</td>
+          <th>{{ tapahtuma1.koti }}-</th>
+          <th>{{ tapahtuma1.vieras }}</th>
           <td>{{ tapahtuma1.laji }}</td>
           <td>{{ tapahtuma1.date_expire }}</td>
           </tr>
           <form method="POST" action="{{ url_for('ready_tulosveto', tapahtuma_id=tapahtuma1.id) }}">
           <tr>
                 <td colspan="2">
-            <input type="submit" value="Veikkaa"/>
+            <input type="submit" class="btn-green" value="Veikkaa"/>
                 </td>
               </tr>
           </form>
-          
+          {% endif %}
+          {% if tapahtuma2.koti %}
           <tr>
-              <td>{{ tapahtuma2.koti }}</td>
-              <td>{{ tapahtuma2.vieras }}</td>
+              <th>{{ tapahtuma2.koti }}-</th>
+              <th>{{ tapahtuma2.vieras }}</th>
               <td>{{ tapahtuma2.laji }}</td>
               <td>{{ tapahtuma2.date_expire }}</td>
               </tr>
               <form method="POST" action="{{ url_for('ready_tulosveto', tapahtuma_id=tapahtuma2.id) }}">
               <tr>
                     <td colspan="2">
-                <input type="submit" value="Veikkaa"/>
+                <input type="submit" class="btn-green" value="Veikkaa"/>
                     </td>
                   </tr>
               </form>
+              {% endif %}
+              {% if tapahtuma3.koti %}
               <tr>
-          <td>{{ tapahtuma3.koti }}</td>
-          <td>{{ tapahtuma3.vieras }}</td>
+          <th>{{ tapahtuma3.koti }}-</th>
+          <th>{{ tapahtuma3.vieras }}</th>
           <td>{{ tapahtuma3.laji }}</td>
           <td>{{ tapahtuma3.date_expire }}</td>
           </tr>
           <form method="POST" action="{{ url_for('ready_tulosveto', tapahtuma_id=tapahtuma3.id) }}">
           <tr>
                 <td colspan="2">
-            <input type="submit" value="Veikkaa"/>
+            <input type="submit" class="btn-green" value="Veikkaa"/>
                 </td>
               </tr>
           </form>
+          {% endif %}
+          {% if tapahtuma4.koti %}
+          <tr>
+            <th>{{ tapahtuma4.koti }}-</th>
+            <th>{{ tapahtuma4.vieras }}</th>
+            <td>{{ tapahtuma4.laji }}</td>
+            <td>{{ tapahtuma4.date_expire }}</td>
+            </tr>
+            <form method="POST" action="{{ url_for('ready_tulosveto', tapahtuma_id=tapahtuma4.id) }}">
+            <tr>
+                  <td colspan="2">
+              <input type="submit" class="btn-green" value="Veikkaa"/>
+                  </td>
+                </tr>
+            </form>
+            {% endif %}
+            {% if tapahtuma5.koti %}
+            <tr>
+                <th>{{ tapahtuma5.koti }}-</th>
+                <th>{{ tapahtuma5.vieras }}</th>
+                <td>{{ tapahtuma5.laji }}</td>
+                <td>{{ tapahtuma5.date_expire }}</td>
+                </tr>
+                {% if tapahtuma5.koti %}
+                <form method="POST" action="{{ url_for('ready_tulosveto', tapahtuma_id=tapahtuma5.id) }}">
+                <tr>
+                      <td colspan="2">
+                  <input type="submit" class="btn-green" value="Veikkaa"/>
+                      </td>
+                    </tr>
+                </form>
+                {% endif %}
+                {% endif %}
+                {% if tapahtuma6.koti %}
+                <tr>
+                    <th>{{ tapahtuma6.koti }}-</th>
+                    <th>{{ tapahtuma6.vieras }}</th>
+                    <td>{{ tapahtuma6.laji }}</td>
+                    <td>{{ tapahtuma6.date_expire }}</td>
+                    </tr>
+                    <form method="POST" action="{{ url_for('ready_tulosveto', tapahtuma_id=tapahtuma6.id) }}">
+                    <tr>
+                          <td colspan="2">
+                      <input type="submit" class="btn-green" value="Veikkaa"/>
+                          </td>
+                        </tr>
+                    </form>
+                    {% endif %}
+
+                    <form method="POST" action="{{ url_for('group_tulosveto_byLaji') }}">
+                        <tr>
+                            <td colspan="2">
+                        <input type="submit" class="btn-orange" value="Lajittele lajin ja ratkeamisen mukaan"/>
+                            </td>
+                          </tr> 
+                      </form>
           
 </table>     
 <a href="{{ url_for('index') }}">Valikkoon</a>

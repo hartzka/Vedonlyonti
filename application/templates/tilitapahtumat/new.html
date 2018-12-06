@@ -1,9 +1,46 @@
 {% extends "layout.html" %}
 
 {% block body %}
+<style>
+.btn-blue {
+    background-color: #1255AA;
+    border: 3px solid #008CBA;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    display: inline-block;
+    font-size: 1.7em;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.13), 0 3px 10px 0 rgba(0,0,0,0.11);
+}
+.btn-blue:hover {
+    background-color: #008CBA;
+    color: white;
+    box-shadow: 0 3px 6px 0 rgba(0,0,0,0.2), 0 2px 6px 0 rgba(0,0,0,0.18);
+}
+.btn-poista {
+    background-color: #E33025;
+    border: 3px solid #F44336;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    display: inline-block;
+    font-size: 1.2em;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.13), 0 3px 10px 0 rgba(0,0,0,0.11);
+}
+.btn-poista:hover {
+    background-color: #F44336;
+    color: white;
+    box-shadow: 0 3px 6px 0 rgba(0,0,0,0.2), 0 2px 6px 0 rgba(0,0,0,0.18);
+}
+</style>
 <table>
+    <b>{{ error }}</b>
     {% if current_user.is_authenticated %}
-    <p>Rahat: {{ current_user.getRahat()}}</p>
+    <th>Rahat: {{ current_user.getRahat()}}</th>
     <td></td>
     {% endif %}
 {% for tapahtuma in tilitapahtumat %}
@@ -27,17 +64,11 @@
           <td>
             {{ tilisiirtoform.tilisiirto }}
           </td>
-          <td>
-            <ul>
-              {% for error in tilisiirtoform.tilisiirto.errors %}
-              <li>{{ error }}</li>
-              {% endfor %}
-            </ul>
-          </td>
+          
 
 
 <td colspan="3">
-  <input type="submit" value="Siirrä"/>
+  <input type="submit" class="btn-blue" value="Siirrä"/>
 </td>
     </tr>
 </form>
@@ -53,15 +84,18 @@
             <td>
               {{ pankkisiirtoform.pankkisiirto }}
             </td>
-            <td>
-              <ul>
-                {% for error in pankkisiirtoform.pankkisiirto.errors %}
-                <li>{{ error }}</li>
-                {% endfor %}
-              </ul>
-            </td>
+            
   <td colspan="3">
-    <input type="submit" value="Siirrä"/>
+    <input type="submit" class="btn-blue" value="Siirrä"/>
+  </td>
+      </tr>
+  </form>
+
+
+  <form method="POST" action="{{ url_for('delete_tilitapahtumat') }}">
+    <tr>
+  <td colspan="3">
+    <input type="submit" class="btn-poista" value="Poista historia"/>
   </td>
       </tr>
   </form>

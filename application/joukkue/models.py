@@ -1,5 +1,7 @@
 from application import db
 from application.models import Base
+from flask_login import current_user
+from sqlalchemy.sql import text
 
 class Joukkue(Base):
     
@@ -17,3 +19,23 @@ class Joukkue(Base):
         self.attack = attack
         self.defence = defence
         self.tactic = tactic
+
+    
+    @staticmethod
+    def findJoukkueetInVedot():
+        stmt = text("select koti, vieras from tapahtuma"
+        " inner join tapahtumaveto on tapahtumaveto.tapahtuma_id=tapahtuma.id"
+        " inner join veto on tapahtumaveto.veto_id=veto.id"
+        " inner join account on veto.account_id = :id"
+        " group by tapahtuma.koti, tapahtuma.vieras"
+                     ).params(id = current_user.id)
+        res = db.engine.execute(stmt)
+        response = []
+        
+        for row in res:
+            if row[0] not in response:
+                response.append(row[0])
+            if row[1] not in response:
+                response.append(row[1])
+        response = sorted(response)
+        return response  

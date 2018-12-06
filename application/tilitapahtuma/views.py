@@ -1,13 +1,13 @@
 from flask import render_template, request, redirect, url_for
 from flask_login import current_user
-
-from application import app, db, login_manager
+from sqlalchemy.sql import text
+from application import app, db, login_manager, login_required
 from application.tilitapahtuma.models import Tilitapahtuma
 from application.tilitapahtuma.forms import TilisiirtoForm
 from application.tilitapahtuma.forms import PankkisiirtoForm
 from application.auth.models import User
 
-@app.route("/tilitapahtumat/", methods=["GET"])
+@app.route("/tilitapahtumat/", methods=["GET","POST"])
 def tilitapahtumat_index():
     return render_template("tilitapahtumat/new.html", tilisiirtoform = TilisiirtoForm(), pankkisiirtoform = PankkisiirtoForm(), tilitapahtumat = User.find_tilitapahtumat_byUser(current_user.id))
     
@@ -15,6 +15,11 @@ def tilitapahtumat_index():
 def tilitapahtumat_form():
     return render_template("tilitapahtumat/new.html", tilisiirtoform = TilisiirtoForm(), pankkisiirtoform = PankkisiirtoForm())
 
+@app.route("/tilitapahtumat/delete/", methods=["POST"])
+def delete_tilitapahtumat():
+    stmt = text("DELETE FROM tilitapahtuma")
+    db.engine.execute(stmt)
+    return redirect(url_for("tilitapahtumat_index"))
 
 @app.route("/tilitapahtumat/<tilitapahtuma_id>/", methods=["POST"])
 def add_to_game_account(tilitapahtuma_id):
@@ -39,7 +44,8 @@ def tilitapahtuma_pelitilille():
 
     if not form.validate() or form.tilisiirto.data <= 0:
 
-        return render_template("tilitapahtumat/new.html", tilisiirtoform = form, pankkisiirtoform = PankkisiirtoForm())
+        return render_template("tilitapahtumat/new.html", tilisiirtoform = form, pankkisiirtoform = PankkisiirtoForm(),
+        tilitapahtumat = User.find_tilitapahtumat_byUser(current_user.id),error = "Anna positiivinen luku")
 
     t = Tilitapahtuma("Siirto pelitilille", form.tilisiirto.data)
     t.account_id = current_user.id
@@ -55,7 +61,8 @@ def tilitapahtuma_pankkitilille():
     form = PankkisiirtoForm(request.form)
 
     if not form.validate() or form.pankkisiirto.data > current_user.rahat or form.pankkisiirto.data <= 0:
-        return render_template("tilitapahtumat/new.html", pankkisiirtoform = form, tilisiirtoform = TilisiirtoForm())
+        return render_template("tilitapahtumat/new.html", pankkisiirtoform = form, tilisiirtoform = TilisiirtoForm(), 
+        tilitapahtumat = User.find_tilitapahtumat_byUser(current_user.id),error = "Anna positiivinen luku")
 
     t = Tilitapahtuma("Siirto pankkitilille", form.pankkisiirto.data*(-1))
     t.account_id = current_user.id

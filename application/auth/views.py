@@ -15,7 +15,7 @@ def auth_login():
     form = LoginForm(request.form)
     # mahdolliset validoinnit
 
-    user = User.query.filter_by(username=form.username.data, password=form.password.data).first()
+    user = User.query.filter_by(username=form.tunnus.data, password=form.salasana.data).first()
     if not user:
         return render_template("auth/loginform.html", form = form,
                                error = "Käyttäjätunnusta tai salasanaa ei löydy")
@@ -35,11 +35,11 @@ def auth_new():
 
     form = LoginForm(request.form)
     if not form.validate():
-        return render_template("auth/new.html", form = form, error = "Minimipituus 2")
+        return render_template("auth/new.html", form = form, error = "Kenttien minimipituus 2")
 
-    user = User.query.filter_by(username=form.username.data, password=form.password.data).first()
+    user = User.query.filter_by(username=form.tunnus.data, password=form.salasana.data).first()
     if not user:
-        new_user = User(form.name.data,form.username.data,form.password.data)
+        new_user = User(form.nimi.data,form.tunnus.data,form.salasana.data)
 
         db.session().add(new_user)
         db.session().commit()

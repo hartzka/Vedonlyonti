@@ -49,6 +49,7 @@ CREATE TABLE tapahtuma (
         date_expire DATETIME,
         active BOOLEAN NOT NULL,
         tulos VARCHAR NOT NULL,
+	live BOOLEAN NOT NULL,
         PRIMARY KEY (id),
         FOREIGN KEY(laji_id) REFERENCES laji (id),
         CHECK (active IN (0, 1))

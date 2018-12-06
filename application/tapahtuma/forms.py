@@ -8,6 +8,9 @@ class TapahtumaForm(FlaskForm):
     moniveto1 = SelectField('Veikkaus', choices=ChoicesMoniveto)
     moniveto2 = SelectField('Veikkaus', choices=ChoicesMoniveto)
     moniveto3 = SelectField('Veikkaus', choices=ChoicesMoniveto)
+    moniveto4 = SelectField('Veikkaus', choices=ChoicesMoniveto)
+    moniveto5 = SelectField('Veikkaus', choices=ChoicesMoniveto)
+    moniveto6 = SelectField('Veikkaus', choices=ChoicesMoniveto)
 
     tulosveto_koti = SelectField('Veikkaus', choices=ChoicesTulosveto)
     tulosveto_vieras = SelectField('Veikkaus', choices=ChoicesTulosveto)

@@ -1,6 +1,25 @@
 {% extends "layout.html" %}
 
 {% block body %}
+<style>
+.btn-blue {
+    background-color: #1255AA;
+    border: 3px solid #008CBA;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    display: inline-block;
+    font-size: 1.7em;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.13), 0 3px 10px 0 rgba(0,0,0,0.11);
+}
+.btn-blue:hover {
+    background-color: #008CBA;
+    color: white;
+    box-shadow: 0 3px 6px 0 rgba(0,0,0,0.2), 0 2px 6px 0 rgba(0,0,0,0.18);
+}
+</style>
 <p><b>Kohde:</b></p>
 <br>
 <form method="POST" action="{{ url_for('create_tulosveto', tapahtuma_id=tapahtuma.id) }}">
@@ -8,8 +27,8 @@
    
     
               <tr>
-          <td>{{ tapahtuma.koti }}</td>
-          <td>{{ tapahtuma.vieras }}</td>
+          <th>{{ tapahtuma.koti }}-</th>
+          <th>{{ tapahtuma.vieras }}</th>
           <td>{{ tapahtuma.laji }}</td>
           <td>{{ tapahtuma.date_expire }}</td>
           </tr>
@@ -26,7 +45,7 @@
         
           <tr>
             <td colspan="2">
-        <input type="submit" value="Vahvista veikkaus"/>
+        <input type="submit" class="btn-blue" value="Vahvista veikkaus"/>
             </td>
           </tr>
       </form>

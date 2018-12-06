@@ -1,6 +1,25 @@
 {% extends "layout.html" %}
 
 {% block body %}
+<style>
+.btn-blue {
+    background-color: #1255AA;
+    border: 3px solid #008CBA;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    display: inline-block;
+    font-size: 1.7em;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.13), 0 3px 10px 0 rgba(0,0,0,0.11);
+}
+.btn-blue:hover {
+    background-color: #008CBA;
+    color: white;
+    box-shadow: 0 3px 6px 0 rgba(0,0,0,0.2), 0 2px 6px 0 rgba(0,0,0,0.18);
+}
+</style>
 <p><b>Veikatut kohteet</b></p>
 <br>
 <form method="POST" action="{{ url_for('create_moniveto') }}">
@@ -8,26 +27,43 @@
     {% for tapahtuma in tapahtumat %}
     
               <tr>
-          <td>{{ tapahtuma.koti }}</td>
-          <td>{{ tapahtuma.vieras }}</td>
-          <td>{{ tapahtuma.laji }}</td>
-          <td>{{ tapahtuma.kerroin }}</td>
+            <td>{{ tapahtuma.laji }}</td>
+          <th>{{ tapahtuma.koti }}-</td>
+          <th>{{ tapahtuma.vieras }}</td>
+            <tr></tr>
+          <td>Kerroin: {{ tapahtuma.kerroin }}</td>
+          <tr></tr>
+          <td>Ratkeaa: </td>
+          <tr></tr>
           <td>{{ tapahtuma.date_expire }}</td>
-          <td>{{ tapahtuma.veto }}</td>
+          <tr></tr>
+          <td>Veikkaus: {{ tapahtuma.veto }}</td>
           
           </tr>
+          <td>--------------------------------</td>
       {% endfor %}
+      <tr></tr>
       <td>{{ form.panos.label }}</td>
       <td>{{ form.panos }}</td>
-      <td></td>
-      <p>Kokonaiskerroin:</p>
-      <td>{{ kerroin }}</td>
+      <tr></tr>
+      <td>Kokonaiskerroin:{{ kerroin }}</td>
           <tr>
             <td colspan="2">
-        <input type="submit" value="Vahvista veikkaus"/>
+        <input type="submit" class="btn-blue" value="Vahvista veikkaus"/>
             </td>
           </tr>
       </form>
-</table>     
+</table> 
+<table>
+        <tr>
+          <tr></tr>
+          <td>1 = Kotivoitto</td>
+          <tr></tr>
+          <td>2 = Vierasvoitto</td>
+          <tr></tr>
+          <td>X = Tasapeli</td>
+        
+        </tr>
+        </table>    
 <a href="{{ url_for('index') }}">Valikkoon</a>
 {% endblock %}

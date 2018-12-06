@@ -1,14 +1,104 @@
 {% extends "layout.html" %}
 
 {% block body %}
-
+<style>
+    .btn-green {
+        background-color: #45622A;
+        border: 3px solid #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        display: inline-block;
+        font-size: 1.4em;
+        -webkit-transition-duration: 0.3s;
+        transition-duration: 0.3s;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.13), 0 3px 10px 0 rgba(0,0,0,0.11);
+    }
+    .btn-green:hover {
+        background-color: #4CAF50;
+        color: white;
+        box-shadow: 0 3px 6px 0 rgba(0,0,0,0.2), 0 2px 6px 0 rgba(0,0,0,0.18);
+    }
+    .btn-blue {
+        background-color: #1255AA;
+        border: 3px solid #008CBA;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        display: inline-block;
+        font-size: 1.7em;
+        -webkit-transition-duration: 0.3s;
+        transition-duration: 0.3s;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.13), 0 3px 10px 0 rgba(0,0,0,0.11);
+    }
+    .btn-blue:hover {
+        background-color: #008CBA;
+        color: white;
+        box-shadow: 0 3px 6px 0 rgba(0,0,0,0.2), 0 2px 6px 0 rgba(0,0,0,0.18);
+    }
+    .btn-orange {
+        background-color: #DD9900;
+        border: 3px solid #FFA500;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        display: inline-block;
+        font-size: 1.7em;
+        -webkit-transition-duration: 0.3s;
+        transition-duration: 0.3s;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.13), 0 3px 10px 0 rgba(0,0,0,0.11);
+    }
+    .btn-orange:hover {
+        background-color: #FFA500;
+        color: white;
+        box-shadow: 0 3px 6px 0 rgba(0,0,0,0.2), 0 2px 6px 0 rgba(0,0,0,0.18);
+    }
+    .btn-poista {
+        background-color: #E33025;
+        border: 3px solid #F44336;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        display: inline-block;
+        font-size: 1.2em;
+        -webkit-transition-duration: 0.3s;
+        transition-duration: 0.3s;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.13), 0 3px 10px 0 rgba(0,0,0,0.11);
+    }
+    .btn-poista:hover {
+        background-color: #F44336;
+        color: white;
+        box-shadow: 0 3px 6px 0 rgba(0,0,0,0.2), 0 2px 6px 0 rgba(0,0,0,0.18);
+    }
+    </style>
 <p>
-  Hei! Tämä sovellus on tuotantovaiheessa!
-  
+  Hei!
 </p>
+<p>Kello on: {{ time }}</p>
 {% if current_user.is_authenticated %}
-<a href="{{ url_for('tapahtumat_moniveto') }}">Moniveto</a>
-<a href="{{ url_for('tapahtumat_tulosveto') }}">Tulosveto</a>
+<form method="GET" action="{{ url_for('tapahtumat_moniveto') }}">
+    <tr>
+        <td colspan="2">
+    <input type="submit" class="btn-green" value="Moniveto"/>
+        </td>
+      </tr> 
+  </form>
+
+  <form method="GET" action="{{ url_for('tapahtumat_tulosveto') }}">
+      <tr>
+          <td rowspan="2">
+      <input type="submit" class="btn-orange" style="padding-bottom: 10px" value="Tulosveto"/>
+          </td>
+        </tr> 
+    </form>
+
+    <form method="GET" action="{{ url_for('tapahtumat_liveveto') }}">
+        <tr>
+            <td colspan="2">
+        <input type="submit" class="btn-blue" value="Liveveto"/>
+            </td>
+          </tr> 
+      </form>
 {% endif %}
 {% endblock %}
 

@@ -5,6 +5,7 @@ from application import app, db, login_manager
 from application.auth.models import User
 from application.tapahtuma.forms import TapahtumaForm
 from application.tapahtuma.models import Tapahtuma
+from application.joukkue.models import Joukkue
 
 @app.route("/vedot", methods=["GET"])
 def vedot_index():
@@ -41,10 +42,14 @@ def update_veto(veto_id, name):
         form.moniveto1.default = tapahtumat[0]["veikkaus"]
         form.moniveto2.default = tapahtumat[1]["veikkaus"]
         form.moniveto3.default = tapahtumat[2]["veikkaus"]
+        form.moniveto4.default = tapahtumat[3]["veikkaus"]
+        form.moniveto5.default = tapahtumat[4]["veikkaus"]
+        form.moniveto6.default = tapahtumat[5]["veikkaus"]
         form.process()
         return render_template("tapahtumat/moniveto_update.html", form=form, 
         tapahtuma1=tapahtumat[0], tapahtuma2=tapahtumat[1],
-        tapahtuma3=tapahtumat[2], veto_id=veto_id)
+        tapahtuma3=tapahtumat[2], tapahtuma4=tapahtumat[3], tapahtuma5=tapahtumat[4],
+        tapahtuma6=tapahtumat[5], veto_id=veto_id)
     elif(name=="tulosveto"):
         veikkaus = tapahtumat[0]["veikkaus"]
         vkoti = "" #veikkauskoti
@@ -66,3 +71,7 @@ def update_veto(veto_id, name):
         form.process()
         return render_template("tapahtumat/tulosveto_update.html", form=form, 
         tapahtuma=tapahtumat[0], veto_id=veto_id)
+
+@app.route("/vedot/group/", methods=["GET","POST"]) 
+def group_vedot_byTeams():
+    return render_template("vedot/vedot.html", vedot=User.find_vedot_byUser(current_user.id), joukkueet=Joukkue.findJoukkueetInVedot())

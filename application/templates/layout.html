@@ -8,7 +8,7 @@
   
   <body style="background-color: #cccccc !important; font-size: 26px !important;">
 
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">  
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4" style="background-color:rgb(44, 14, 238) !important">   
 <a class="navbar-brand" href="{{ url_for('index')}}" style="color: coral !important; font-size: 36px !important;">Vedonlyonti</a>
 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -17,20 +17,20 @@
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
               {% if current_user.is_authenticated %}
-            <a class="nav-link" href="{{ url_for('tilitapahtumat_index') }} ">Rahat: {{ current_user.getRahat() }}</a>
+            <a class="nav-link" href="{{ url_for('tilitapahtumat_index') }}" style="color:white">Rahat: {{ current_user.getRahat() }}</a>
           {% endif %}
           </li>
           <li class="nav-item">
             {% if current_user.is_authenticated %}
-            <a class="nav-link" href="{{ url_for('vedot_index') }} ">Omat vedot</a>
+            <a class="nav-link" href="{{ url_for('vedot_index') }}" style="color:white">Omat vedot</a>
           {% endif %}
           </li>
         </ul>
         <div class="form-inline mt-2 mt-md-0">
     {% if current_user.is_authenticated %}
-    <a href="{{ url_for('auth_logout') }}">{{ current_user.name }} -- Logout</a>
+    <a href="{{ url_for('auth_logout') }}" style="color:white">{{ current_user.name }} -- Kirjaudu ulos</a>
     {% else %}
-    <a href="{{ url_for('auth_login') }}">Login</a>
+    <a href="{{ url_for('auth_login') }}" style="color:white">Kirjaudu</a>
     {% endif %}
         </div>
 </div>

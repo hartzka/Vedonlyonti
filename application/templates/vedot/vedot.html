@@ -1,40 +1,142 @@
 {% extends "layout.html" %}
-
 {% block body %}
+<style>
+.btn-green {
+    background-color: #45622A;
+    border: 3px solid #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    display: inline-block;
+    font-size: 1.4em;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.13), 0 3px 10px 0 rgba(0,0,0,0.11);
+}
+.btn-green:hover {
+    background-color: #4CAF50;
+    color: white;
+    box-shadow: 0 3px 6px 0 rgba(0,0,0,0.2), 0 2px 6px 0 rgba(0,0,0,0.18);
+}
+.btn-blue {
+    background-color: #1255AA;
+    border: 3px solid #008CBA;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    display: inline-block;
+    font-size: 1.7em;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.13), 0 3px 10px 0 rgba(0,0,0,0.11);
+}
+.btn-blue:hover {
+    background-color: #008CBA;
+    color: white;
+    box-shadow: 0 3px 6px 0 rgba(0,0,0,0.2), 0 2px 6px 0 rgba(0,0,0,0.18);
+}
+.btn-orange {
+    background-color: #DD9900;
+    border: 3px solid #FFA500;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    display: inline-block;
+    font-size: 1.7em;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.13), 0 3px 10px 0 rgba(0,0,0,0.11);
+}
+.btn-orange:hover {
+    background-color: #FFA500;
+    color: white;
+    box-shadow: 0 3px 6px 0 rgba(0,0,0,0.2), 0 2px 6px 0 rgba(0,0,0,0.18);
+}
+.btn-poista {
+    background-color: #E33025;
+    border: 3px solid #F44336;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    display: inline-block;
+    font-size: 1.2em;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.13), 0 3px 10px 0 rgba(0,0,0,0.11);
+}
+.btn-poista:hover {
+    background-color: #F44336;
+    color: white;
+    box-shadow: 0 3px 6px 0 rgba(0,0,0,0.2), 0 2px 6px 0 rgba(0,0,0,0.18);
+}
+</style>
+
 <table>
     
 {% for veto in vedot %}
         <tr>
+          
             <td><b>{{ veto.nimi }}</td>
-            <td>
-            {% if veto.active == 0 %}
-            <form method="POST" action="{{ url_for('delete_veto', veto_id=veto.id) }}">
-                <input type="submit" value="Poista veto"/>
-                  </form>
-                  {% endif %}
-                  </td>
-                  <td>
-                    {% if veto.active == 1 %}
-                    <form method="POST" action="{{ url_for('update_veto', veto_id=veto.id, name=veto.nimi) }}">
-                        <input type="submit" value="Muuta vetoa"/>
-                          </form>
-                          {% endif %}
-                          </td>
+              <td>
+              {% if veto.active == 0 %}
+              <form method="POST" action="{{ url_for('delete_veto', veto_id=veto.id) }}">
+                  <input type="submit" class="btn-poista" value="Poista veto"/>
+                    </form>
+                    {% endif %}
+                    </td>
+                    <td>
+                      {% if veto.active == 1 %}
+                      <form method="POST" action="{{ url_for('update_veto', veto_id=veto.id, name=veto.nimi) }}">
+                          <input type="submit" class="btn-blue" value="Muuta vetoa"/>
+                            </form>
+                            {% endif %}
+                        </td>        
+            <tr></tr>
+                          
         </tr>
             {% for tapahtuma in veto.tapahtumavedot %}
             <tr>
-          <td>{{ tapahtuma.koti }} - {{ tapahtuma.vieras }}     {{ tapahtuma.veikkaus }}    {{ tapahtuma.tulos }}</td>
-          <td></td>
+          <td>{{ tapahtuma.koti }} - {{ tapahtuma.vieras }}</td> 
+          <tr></tr>
+            <td>Veikkaus: {{ tapahtuma.veikkaus }}</td>
+            <tr></tr>
+              <td>Tulos: {{ tapahtuma.tulos }}</td>
+          <tr></tr>
+          <td>----------------</td>
+          <tr></tr>
+        
           </tr>
+          
           {% endfor %}
           <tr>
+            
           <td>Panos: {{ veto.panos }}</td>
           <br>
           <td>Kokonaiskerroin: {{ veto.kerroin }}</td>
           <td>Ratkeaa: {{ veto.ratkeaa }}</td>
+          <tr></tr>
+          
           </tr>
+          <tr></tr>
+          <tr></tr>
           {% endfor %}
           </table>
+
+          {% if joukkueet %}
+          <tr>
+            <tr></tr>
+            <th><b>Vedoissa mukana olevat joukkueet:</b></th>
+            <ul>
+            {% for joukkue in joukkueet %}
+            <li>{{ joukkue }}</li>
+            {% endfor %}
+            </ul>
+            </tr>
+          {% endif %}
+
+          <form method="POST" action="{{ url_for('group_vedot_byTeams') }}">
+            <input type="submit" class="btn-green" value="Veikatut joukkueet"/>
+              </form>
 
 <a href="{{ url_for('index') }}">Valikkoon</a>
 
