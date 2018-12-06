@@ -1,0 +1,1 @@
+Sovellus pyörii herokussa tällä githubin koodilla. Jotta sovellusta voi käyttää localhostissa, tulee riippuvuudet asentaa requirements.txt -tiedostosta. Lisäksi tietokantaan pitää lisätä rivit, jotka löytyvät sql_vedot -tiedostosta. Booleanien kanssa on hieman ongelmia, herokussa True ja False toimivat osana tietokantakyselyitä, mutta selaimessa ne pitää muuttaa luvuiksi 0 ja 1.
