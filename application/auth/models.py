@@ -95,7 +95,7 @@ class User(Base):
                 for data in res3:
                     row3 = data
                 if (len(row3) > 4):
-                    if (str(row3[4]) == "0"):
+                    if (str(row3[4]) == "False"):
                         active = 0  
                     uratk = datetime.strptime(str(row3[3]), '%Y-%m-%d %H:%M:%S.%f')
                     if uratk > ratk:
