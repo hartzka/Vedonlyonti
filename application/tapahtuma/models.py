@@ -307,7 +307,6 @@ class Tapahtuma(Base):
         #palauttaa listan monivetotapahtumista (3) with koti, vieras, laji, kerroin, date_expire, live
         
         present = datetime.now()
-        print(live)
         stmt = text("SELECT tapahtuma.id, koti, vieras, laji_id, kerroin1, kerroin2, kerroinx, date_expire, live"
                     " FROM tapahtuma, laji"
                     " WHERE active = True"
@@ -549,10 +548,12 @@ class Tapahtuma(Base):
         for veto in vedot:
             oikein = True
             tvedot = Tapahtumaveto.haeVedot(veto["id"])
+            print(tvedot)
             if (len(tvedot) == 0):
                 oikein = False
             for tveto in tvedot:
                 tulos = Tapahtuma.haeTulos(tveto["tapahtuma_id"])
+                print(tulos)
                 if (tulos == "kesken" or tulos == ""):
                     oikein = False
                     break
@@ -565,8 +566,11 @@ class Tapahtuma(Base):
                     i=i+1
                 vieras=int(tulos[i+1:])
                 koti=int(koti)
-                    
+                
                 veikkaus = tveto["veikkaus"]
+                print(koti)
+                print(vieras)
+                print(veikkaus)
                 if(tveto["name"] == "moniveto"):
                     
                     if (koti > vieras and veikkaus != "1"):
@@ -580,33 +584,33 @@ class Tapahtuma(Base):
                         break  
                 elif(tveto["name"] == "tulosveto"):
             
-                    vkoti = "" #veikkauskoti
-                    vvieras = "" #veikkausvieras
+                    veikkaus_koti = "" #veikkauskoti
+                    veikkaus_vieras = "" #veikkausvieras
                     i=0
                     while(veikkaus[i]!="-"):
-                        vkoti=vkoti+veikkaus[i]
+                        veikkaus_koti=veikkaus_koti+veikkaus[i]
                         i=i+1
-                    vvieras=(veikkaus[i+1:])
-                    if(vvieras[len(vvieras)-1] == "+"):
-                        vvieras=vvieras[0:len(vvieras)-1]
-                    if(vkoti[len(vkoti)-1] == "+"):
-                        vkoti=vkoti[0:len(vkoti)-1]
-                    vkoti=int(vkoti)
-                    vvieras=int(vvieras)
+                    veikkaus_vieras=(veikkaus[i+1:])
+                    if(veikkaus_vieras[len(veikkaus_vieras)-1] == "+"):
+                        veikkaus_vieras=veikkaus_vieras[0:len(veikkaus_vieras)-1]
+                    if(veikkaus_koti[len(veikkaus_koti)-1] == "+"):
+                        veikkaus_koti=veikkaus_koti[0:len(veikkaus_koti)-1]
+                    veikkaus_koti=int(veikkaus_koti)
+                    veikkaus_vieras=int(veikkaus_vieras)
                     
-                    if(koti >= 10 and vkoti == 10 and vieras==vvieras):
+                    if(koti >= 10 and veikkaus_koti == 10 and vieras==veikkaus_vieras):
                         break
-                    elif(vieras >= 10 and vvieras == 10 and koti==vkoti):
+                    elif(vieras >= 10 and veikkaus_vieras == 10 and koti==veikkaus_koti):
                         break
-                    elif(koti >= 10 and vkoti == 10 and vieras >= 10 and vvieras == 10):
+                    elif(koti >= 10 and veikkaus_koti == 10 and vieras >= 10 and veikkaus_vieras == 10):
                         break
-                    elif (koti != vkoti):
+                    elif (koti != veikkaus_koti):
                         oikein = False
                         break
-                    elif (vieras != vvieras):
+                    elif (vieras != veikkaus_vieras):
                         oikein = False
                         break
-                        
+            print(oikein)        
             if (oikein == True):
             #pelivoittojen käsittely
                 kerroin = float("%.2f" % float(veto["kerroin"]))
