@@ -458,7 +458,20 @@ class Tapahtuma(Base):
     @staticmethod
     def haeTulos(tapahtuma_id):
         stmt = text("SELECT tulos FROM tapahtuma"
-                     " WHERE active = True AND tapahtuma.id = :id"
+                     " WHERE tapahtuma.id = :id"
+                     ).params(id=tapahtuma_id)
+        res = db.engine.execute(stmt)
+
+        response = ""
+        for row in res:
+            response = row[0]
+            
+        return response
+
+    @staticmethod
+    def isActive(tapahtuma_id):
+        stmt = text("SELECT active FROM tapahtuma"
+                     " WHERE tapahtuma.id = :id"
                      ).params(id=tapahtuma_id)
         res = db.engine.execute(stmt)
 
@@ -547,12 +560,16 @@ class Tapahtuma(Base):
         vedot = User.haeVedot(current_user.id)
         for veto in vedot:
             oikein = True
-            tvedot = Tapahtumaveto.haeVedot(veto["id"])
-            print(tvedot)
-            if (len(tvedot) == 0):
+            active = False
+            tapahtumavedot = Tapahtumaveto.haeVedot(veto["id"])
+            print(tapahtumavedot)
+            if (len(tapahtumavedot) == 0):
                 oikein = False
-            for tveto in tvedot:
-                tulos = Tapahtuma.haeTulos(tveto["tapahtuma_id"])
+            for tapahtumaveto in tapahtumavedot:
+                if(Tapahtuma.isActive(tapahtumaveto["tapahtuma_id"])):
+                    active=True
+                    print("active:true")
+                tulos = Tapahtuma.haeTulos(tapahtumaveto["tapahtuma_id"])
                 print(tulos)
                 if (tulos == "kesken" or tulos == ""):
                     oikein = False
@@ -567,14 +584,14 @@ class Tapahtuma(Base):
                 vieras=int(tulos[i+1:])
                 koti=int(koti)
                 
-                veikkaus = tveto["veikkaus"]
+                veikkaus = tapahtumaveto["veikkaus"]
                 print("koti:")
                 print(koti)
                 print("vieras:")
                 print(vieras)
                 print("veikkaus:")
                 print(veikkaus)
-                if(tveto["name"] == "moniveto"):
+                if(tapahtumaveto["name"] == "moniveto"):
                     
                     if (koti > vieras and veikkaus != "1"):
                         oikein = False
@@ -585,7 +602,7 @@ class Tapahtuma(Base):
                     elif (koti == vieras and veikkaus != "X"):
                         oikein = False
                         break  
-                elif(tveto["name"] == "tulosveto"):
+                elif(tapahtumaveto["name"] == "tulosveto"):
             
                     veikkaus_koti = "" #veikkauskoti
                     veikkaus_vieras = "" #veikkausvieras
@@ -614,7 +631,7 @@ class Tapahtuma(Base):
                         oikein = False
                         break
             print(oikein)        
-            if (oikein == True):
+            if ((oikein == True) and (active == True)):
             #pelivoittojen käsittely
                 kerroin = float("%.2f" % float(veto["kerroin"]))
                 panos = int(veto["panos"])
