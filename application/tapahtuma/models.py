@@ -458,7 +458,7 @@ class Tapahtuma(Base):
     @staticmethod
     def haeTulos(tapahtuma_id):
         stmt = text("SELECT tulos FROM tapahtuma"
-                     " WHERE tapahtuma.id = :id"
+                     " WHERE active = True AND tapahtuma.id = :id"
                      ).params(id=tapahtuma_id)
         res = db.engine.execute(stmt)
 
@@ -536,9 +536,7 @@ class Tapahtuma(Base):
             stm = text("UPDATE tapahtuma SET tulos = :tulos WHERE id = :id"
             ).params(tulos=tapahtuma["tulos"], id=tapahtuma["id"])
             db.engine.execute(stm)
-            stm2 = text("UPDATE tapahtuma SET active = False WHERE id = :id"
-            ).params(id=tapahtuma["id"])
-            db.engine.execute(stm2)
+            
 
         for tj in tapahtumajoukkueet:
             stm = text("UPDATE tapahtumajoukkue SET pisteet = :goals WHERE id = :id"
@@ -637,6 +635,11 @@ class Tapahtuma(Base):
                 db.session().commit()
 
         present = datetime.now()
+
+        for tapahtuma in tapahtumat:
+            stm2 = text("UPDATE tapahtuma SET active = False WHERE id = :id"
+            ).params(id=tapahtuma["id"])
+            db.engine.execute(stm2)
     
         for i in range (6):
             #uusien tapahtumien luonti
