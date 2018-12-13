@@ -10,7 +10,7 @@
         text-align: center;
         display: inline-block;
         font-size: 1.4em;
-        margin: 5px;
+        margin: 10px;
         -webkit-transition-duration: 0.3s;
         transition-duration: 0.3s;
         box-shadow: 0 4px 8px 0 rgba(0,0,0,0.13), 0 3px 10px 0 rgba(0,0,0,0.11);
@@ -28,6 +28,7 @@
         text-align: center;
         display: inline-block;
         font-size: 1.7em;
+        margin: 10px;
         -webkit-transition-duration: 0.3s;
         transition-duration: 0.3s;
         box-shadow: 0 4px 8px 0 rgba(0,0,0,0.13), 0 3px 10px 0 rgba(0,0,0,0.11);
@@ -45,6 +46,7 @@
         text-align: center;
         display: inline-block;
         font-size: 1.7em;
+        margin: 10px;
         -webkit-transition-duration: 0.3s;
         transition-duration: 0.3s;
         box-shadow: 0 4px 8px 0 rgba(0,0,0,0.13), 0 3px 10px 0 rgba(0,0,0,0.11);
@@ -62,6 +64,7 @@
         text-align: center;
         display: inline-block;
         font-size: 1.2em;
+        margin: 10px;
         -webkit-transition-duration: 0.3s;
         transition-duration: 0.3s;
         box-shadow: 0 4px 8px 0 rgba(0,0,0,0.13), 0 3px 10px 0 rgba(0,0,0,0.11);
@@ -73,10 +76,12 @@
     }
     </style>
     <p>{{ time }}</p>
+    {% if current_user.is_authenticated %}
 <p><b>
   Veikattavat kategoriat:
   </b>
 </p>
+{% endif %}
 
 {% if current_user.is_authenticated %}
 <form method="GET" action="{{ url_for('tapahtumat_moniveto') }}">
