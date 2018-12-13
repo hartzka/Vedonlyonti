@@ -73,15 +73,18 @@ def ready_moniveto(live, sorted):
     
     if (t1=="-" and t2=="-" and t3=="-" and t4=="-" and t5=="-" and t6=="-"):
         return redirect(url_for("tapahtumat_moniveto"))
-    
+    print(sorted)
     if (int(sorted)==0):
+        print("a")
         tap = Tapahtuma.haeMonivetoTapahtumat(live==True)
         
     else:
+        print("b")
         tap = Tapahtuma.haeMonivetoTapahtumat_groupByLaji(live)
         
     tapahtumat = []
     kerroin = 1
+    print(tap)
     if(t1!="-"):
         t = tap[0]
         tkerroin = 1 #tamakerroin
