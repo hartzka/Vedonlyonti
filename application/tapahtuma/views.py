@@ -80,7 +80,10 @@ def ready_moniveto(live, sorted):
             tap = Tapahtuma.haeMonivetoTapahtumat(False)
         
     else:
-        tap = Tapahtuma.haeMonivetoTapahtumat_groupByLaji(live)
+        if(int(live)==1):
+            tap = Tapahtuma.haeMonivetoTapahtumat_groupByLaji(True)
+        else:
+            tap = Tapahtuma.haeMonivetoTapahtumat_groupByLaji(False)
         
     tapahtumat = []
     kerroin = 1
