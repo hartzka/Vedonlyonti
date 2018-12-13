@@ -391,7 +391,10 @@ def update_tulosveto(veto_id):
 
 @app.route("/tapahtuma/moniveto/group/<live>/", methods=["GET", "POST"])
 def group_moniveto_byLaji(live):
-    tapahtumat = Tapahtuma.haeMonivetoTapahtumat_groupByLaji(live==True)
+    if(int(live)==1):
+        tapahtumat = Tapahtuma.haeMonivetoTapahtumat_groupByLaji(True)
+    else:
+        tapahtumat = Tapahtuma.haeMonivetoTapahtumat_groupByLaji(False)
     return render_template("tapahtumat/moniveto.html", 
     form=TapahtumaForm(), tapahtuma1=tapahtumat[0], tapahtuma2=tapahtumat[1],
     tapahtuma3=tapahtumat[2], tapahtuma4=tapahtumat[3], 
