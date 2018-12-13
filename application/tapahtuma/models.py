@@ -307,7 +307,7 @@ class Tapahtuma(Base):
         #palauttaa listan monivetotapahtumista (3) with koti, vieras, laji, kerroin, date_expire, live
         
         present = datetime.now()
-
+        print(live)
         stmt = text("SELECT tapahtuma.id, koti, vieras, laji_id, kerroin1, kerroin2, kerroinx, date_expire, live"
                     " FROM tapahtuma, laji"
                     " WHERE active = True"
