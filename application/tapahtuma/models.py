@@ -458,7 +458,7 @@ class Tapahtuma(Base):
     @staticmethod
     def haeTulos(tapahtuma_id):
         stmt = text("SELECT tulos FROM tapahtuma"
-                     " WHERE active = True AND tapahtuma.id = :id"
+                     " WHERE tapahtuma.id = :id"
                      ).params(id=tapahtuma_id)
         res = db.engine.execute(stmt)
 
@@ -531,6 +531,8 @@ class Tapahtuma(Base):
 
 
         for tapahtuma in tapahtumat:
+            print("tulos:")
+            print(tapahtuma["tulos"])
             stm = text("UPDATE tapahtuma SET tulos = :tulos WHERE id = :id"
             ).params(tulos=tapahtuma["tulos"], id=tapahtuma["id"])
             db.engine.execute(stm)
