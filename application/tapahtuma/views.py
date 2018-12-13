@@ -74,6 +74,7 @@ def ready_moniveto(live, sorted):
     if (t1=="-" and t2=="-" and t3=="-" and t4=="-" and t5=="-" and t6=="-"):
         return redirect(url_for("tapahtumat_moniveto"))
     print(sorted)
+    print(live)
     if (int(sorted)==0):
         print("a")
         if (live == True or live == 1):
