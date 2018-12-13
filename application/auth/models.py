@@ -77,6 +77,8 @@ class User(Base):
             v = []
             row3 = []
             active = 1
+            non_actives = False
+            actives = False
             ker = row[2]
             ker = ("%.2f" % ker)
             stmt2 = text("SELECT name, veikkaus, veto_id, tapahtuma_id FROM tapahtumaveto"
@@ -96,10 +98,15 @@ class User(Base):
                     row3 = data
                 if (len(row3) > 4):
                     if (str(row3[4]) == "False"):
-                        active = 0  
+                        non_actives = True
+                        active = 0
+                    else:
+                        actives = True
                     uratk = datetime.strptime(str(row3[3]), '%Y-%m-%d %H:%M:%S.%f')
                     if uratk > ratk:
                         ratk = uratk
+                    if(actives == True and non_actives == True):
+                        active=2
                 v.append({"veikkaus":row2[1], "koti":row3[0], "vieras":row3[1], "tulos":row3[2]})
     
             
@@ -119,8 +126,7 @@ class User(Base):
                 ratk = str(str(ratk)[0:16])
                 
             response.append({"id":row[0], "nimi": nimi, "tapahtumavedot": v, "panos":row[1] , "kerroin":ker, "ratkeaa":ratk, "active":active})   
-            print(ker)
-            print(active)
+  
         return response
     
     @staticmethod
