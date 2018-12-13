@@ -76,7 +76,7 @@ def ready_moniveto(live, sorted):
     print(sorted)
     if (int(sorted)==0):
         print("a")
-        tap = Tapahtuma.haeMonivetoTapahtumat(live==True)
+        tap = Tapahtuma.haeMonivetoTapahtumat(live=True)
         
     else:
         print("b")
