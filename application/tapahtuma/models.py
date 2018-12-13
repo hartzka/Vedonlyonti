@@ -568,8 +568,11 @@ class Tapahtuma(Base):
                 koti=int(koti)
                 
                 veikkaus = tveto["veikkaus"]
+                print("koti:")
                 print(koti)
+                print("vieras:")
                 print(vieras)
+                print("veikkaus:")
                 print(veikkaus)
                 if(tveto["name"] == "moniveto"):
                     
