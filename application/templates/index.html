@@ -76,6 +76,9 @@
     }
     </style>
     <p>{{ time }}</p>
+    {% if not current_user.is_authenticated %}
+    <p>Aloita kirjautumalla sisään.</p>
+    {% endif %}
     {% if current_user.is_authenticated %}
 <p><b>
   Veikattavat kategoriat:

@@ -43,9 +43,9 @@
     <b>{{ error }}</b>
     {% if current_user.is_authenticated %}
     <th>Rahaa pelitilillä: {{ current_user.getRahat()}}</th>
-    <td></td>
+    <tr></tr>
     {% endif %}
-    <tr</tr>
+    <tr></tr>
     <th>Tapahtumahistoria:</th>
     <tr></tr>
 {% for tapahtuma in tilitapahtumat %}
