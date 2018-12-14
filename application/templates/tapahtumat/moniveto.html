@@ -1,6 +1,16 @@
 {% extends "layout.html" %}
 
 {% block body %}
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.7.5/css/bootstrap-select.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.7.5/js/bootstrap-select.min.js"></script>
+  
+  
+  </head>
+  
 <style>
 .btn-green {
     background-color: #45622A;
@@ -39,6 +49,7 @@
     box-shadow: 0 3px 6px 0 rgba(0,0,0,0.2), 0 2px 6px 0 rgba(0,0,0,0.18);
 }
 </style>
+
 <p><b>Monivetokohteet ja kertoimet tapahtumille:</b></p>
 <br>
 <form method="POST" action="{{ url_for('ready_moniveto', live=live, sorted=sorted) }}">
@@ -52,8 +63,11 @@
           <td>X: {{ tapahtuma1.kerroinX }}</td>
           <td>2: {{ tapahtuma1.kerroin2 }}</td>
           <td>ratkeaa:{{ tapahtuma1.date_expire }}</td>
-          <td>{{ form.moniveto1 }}</td>
-          </tr>
+          <div class="container">
+
+          <td class="selectpicker" data-style="btn-primary" multiple data-max-options="1">{{ form.moniveto1 }}</td>
+        </div>  
+        </tr>
           
           <tr>
               <th>{{ tapahtuma2.koti }}</td>
