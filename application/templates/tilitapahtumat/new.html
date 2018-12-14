@@ -42,9 +42,12 @@
 <table>
     <b>{{ error }}</b>
     {% if current_user.is_authenticated %}
-    <th>Rahat: {{ current_user.getRahat()}}</th>
+    <th>Rahaa pelitilillä: {{ current_user.getRahat()}}</th>
     <td></td>
     {% endif %}
+    <tr</tr>
+    <th>Tapahtumahistoria:</th>
+    <tr></tr>
 {% for tapahtuma in tilitapahtumat %}
         <tr>
           <td>{{ tapahtuma.date_created }}</td>
@@ -53,12 +56,12 @@
           </tr>
           {% endfor %}
           </table>
-
+<tr></tr>
 <form method="POST" action="{{ url_for('tilitapahtuma_pelitilille') }}">
   <table>
     <tr>
       
-      <td>Siirrä rahaa pelitilille:</td>
+      <th>Siirrä rahaa pelitilille:</th>
       <tr></tr>
         <td>
             {{ tilisiirtoform.tilisiirto.label }}
@@ -74,11 +77,11 @@
 </td>
     </tr>
 </form>
-
+<tr></tr>
 <form method="POST" action="{{ url_for('tilitapahtuma_pankkitilille') }}">
     <table>
       <tr>
-        <td>Siirrä rahaa pankkitilille:</td>
+        <th>Siirrä rahaa pankkitilille:</th>
         <tr></tr>
           <td>
               {{ pankkisiirtoform.pankkisiirto.label }}

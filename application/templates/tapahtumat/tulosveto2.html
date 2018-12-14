@@ -45,20 +45,20 @@
             <td>{{ form.panos }}</td>
             <td></td>
         
-            <table style="background-color: antiquewhite; margin: 10px">
-                <tr>
-                    <td>Veikkaa koti- ja vierasjoukkueiden maalimäärää ja aseta panos vedolle.</td>
-                    <tr></tr>
-                    <td>Kerroin määräytyy myöhemmin vedon todennäköisyyden perusteella.</td>
-                    
-                </tr>
-                </table>
           <tr>
             <td colspan="2">
         <input type="submit" class="btn-blue" value="Vahvista veto"/>
             </td>
           </tr>
       </form>
-</table>     
+</table>
+<table style="background-color: antiquewhite; margin: 10px">
+        <tr>
+            <td>Veikkaa koti- ja vierasjoukkueen maalimäärää ja aseta panos vedollesi.</td>
+            <tr></tr>
+            <td>Kerroin määräytyy myöhemmin vedon todennäköisyyden perusteella.</td>
+            
+        </tr>
+        </table>     
 <a href="{{ url_for('index') }}">Valikkoon</a>
 {% endblock %}

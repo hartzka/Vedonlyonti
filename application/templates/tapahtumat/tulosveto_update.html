@@ -21,7 +21,7 @@
     box-shadow: 0 3px 6px 0 rgba(0,0,0,0.2), 0 2px 6px 0 rgba(0,0,0,0.18);
 }
 </style>
-<p><b>Veikatut kohteet:</b></p>
+<p><b>Veikattu kohde:</b></p>
 <br>
 <form method="POST" action="{{ url_for('update_tulosveto', veto_id=veto_id) }}">
   <table>
@@ -29,6 +29,7 @@
         <tr>
           <th>{{ tapahtuma.koti }}-</th>
           <th>{{ tapahtuma.vieras }}</th>
+          <tr></tr>
           <td>{{ tapahtuma.laji }}</td>
           </tr>
           
@@ -42,6 +43,14 @@
             </td>
           </tr>
       </form>
-</table>     
+</table>
+<table style="background-color: antiquewhite; margin: 10px">
+        <tr>
+            <td>Muuta koti- ja vierasjoukkueen maalimäärien veikkaustasi.</td>
+            <tr></tr>
+            <td>Kerroin määräytyy myöhemmin vedon todennäköisyyden perusteella.</td>
+            
+        </tr>
+        </table>          
 <a href="{{ url_for('index') }}">Valikkoon</a>
 {% endblock %}

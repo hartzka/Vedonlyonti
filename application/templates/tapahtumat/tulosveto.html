@@ -62,7 +62,7 @@
               <th>{{ tapahtuma2.koti }}-</th>
               <th>{{ tapahtuma2.vieras }}</th>
               <td>{{ tapahtuma2.laji }}</td>
-              <td>{{ tapahtuma2.date_expire }}</td>
+              <td>Ratkeaa: {{ tapahtuma2.date_expire }}</td>
               </tr>
               <form method="POST" action="{{ url_for('ready_tulosveto', tapahtuma_id=tapahtuma2.id) }}">
               <tr>
@@ -77,7 +77,7 @@
           <th>{{ tapahtuma3.koti }}-</th>
           <th>{{ tapahtuma3.vieras }}</th>
           <td>{{ tapahtuma3.laji }}</td>
-          <td>{{ tapahtuma3.date_expire }}</td>
+          <td>Ratkeaa: {{ tapahtuma3.date_expire }}</td>
           </tr>
           <form method="POST" action="{{ url_for('ready_tulosveto', tapahtuma_id=tapahtuma3.id) }}">
           <tr>
@@ -92,7 +92,7 @@
             <th>{{ tapahtuma4.koti }}-</th>
             <th>{{ tapahtuma4.vieras }}</th>
             <td>{{ tapahtuma4.laji }}</td>
-            <td>{{ tapahtuma4.date_expire }}</td>
+            <td>Ratkeaa: {{ tapahtuma4.date_expire }}</td>
             </tr>
             <form method="POST" action="{{ url_for('ready_tulosveto', tapahtuma_id=tapahtuma4.id) }}">
             <tr>
@@ -107,7 +107,7 @@
                 <th>{{ tapahtuma5.koti }}-</th>
                 <th>{{ tapahtuma5.vieras }}</th>
                 <td>{{ tapahtuma5.laji }}</td>
-                <td>{{ tapahtuma5.date_expire }}</td>
+                <td>Ratkeaa: {{ tapahtuma5.date_expire }}</td>
                 </tr>
                 {% if tapahtuma5.koti %}
                 <form method="POST" action="{{ url_for('ready_tulosveto', tapahtuma_id=tapahtuma5.id) }}">
@@ -124,7 +124,7 @@
                     <th>{{ tapahtuma6.koti }}-</th>
                     <th>{{ tapahtuma6.vieras }}</th>
                     <td>{{ tapahtuma6.laji }}</td>
-                    <td>{{ tapahtuma6.date_expire }}</td>
+                    <td>Ratkeaa: {{ tapahtuma6.date_expire }}</td>
                     </tr>
                     <form method="POST" action="{{ url_for('ready_tulosveto', tapahtuma_id=tapahtuma6.id) }}">
                     <tr>
