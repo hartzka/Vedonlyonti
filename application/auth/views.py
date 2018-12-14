@@ -8,7 +8,6 @@ import random
 
 @app.route("/auth/login", methods = ["GET", "POST"])
 def auth_login():
-    print(max(float("%.2f" % (0.2 + random.random()*0.4 - 0.2)),1.01))
     if request.method == "GET":
         return render_template("auth/loginform.html", form = LoginForm())
 

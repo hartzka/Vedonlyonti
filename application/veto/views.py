@@ -36,7 +36,6 @@ def delete_veto(veto_id):
 def update_veto(veto_id, name):
     #vedot=User.find_vedot_byUser(current_user.id, veto_id)
     tapahtumat = Tapahtuma.haeMonivetoTapahtumatByVetoId(veto_id)
-    print(tapahtumat)
     form = TapahtumaForm()
     if(name=="moniveto"):
         form.moniveto1.default = tapahtumat[0]["veikkaus"]

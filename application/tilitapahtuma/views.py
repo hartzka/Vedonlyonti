@@ -8,6 +8,7 @@ from application.tilitapahtuma.forms import PankkisiirtoForm
 from application.auth.models import User
 
 @app.route("/tilitapahtumat/", methods=["GET","POST"])
+@login_required(role="ADMIN")
 def tilitapahtumat_index():
     return render_template("tilitapahtumat/new.html", tilisiirtoform = TilisiirtoForm(), pankkisiirtoform = PankkisiirtoForm(), tilitapahtumat = User.find_tilitapahtumat_byUser(current_user.id))
     

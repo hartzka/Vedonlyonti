@@ -544,8 +544,6 @@ class Tapahtuma(Base):
 
 
         for tapahtuma in tapahtumat:
-            print("tulos:")
-            print(tapahtuma["tulos"])
             stm = text("UPDATE tapahtuma SET tulos = :tulos WHERE id = :id"
             ).params(tulos=tapahtuma["tulos"], id=tapahtuma["id"])
             db.engine.execute(stm)
@@ -562,15 +560,15 @@ class Tapahtuma(Base):
             oikein = True
             active = False
             tapahtumavedot = Tapahtumaveto.haeVedot(veto["id"])
-            print(tapahtumavedot)
+         
             if (len(tapahtumavedot) == 0):
                 oikein = False
             for tapahtumaveto in tapahtumavedot:
                 if(Tapahtuma.isActive(tapahtumaveto["tapahtuma_id"])):
                     active=True
-                    print("active:true")
+          
                 tulos = Tapahtuma.haeTulos(tapahtumaveto["tapahtuma_id"])
-                print(tulos)
+          
                 if (tulos == "kesken" or tulos == ""):
                     oikein = False
                     break
@@ -585,12 +583,7 @@ class Tapahtuma(Base):
                 koti=int(koti)
                 
                 veikkaus = tapahtumaveto["veikkaus"]
-                print("koti:")
-                print(koti)
-                print("vieras:")
-                print(vieras)
-                print("veikkaus:")
-                print(veikkaus)
+                
                 if(tapahtumaveto["name"] == "moniveto"):
                     
                     if (koti > vieras and veikkaus != "1"):
@@ -630,7 +623,7 @@ class Tapahtuma(Base):
                     elif (vieras != veikkaus_vieras):
                         oikein = False
                         break
-            print(oikein)        
+                  
             if ((oikein == True) and (active == True)):
             #pelivoittojen käsittely
                 kerroin = float("%.2f" % float(veto["kerroin"]))
