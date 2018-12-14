@@ -1,13 +1,14 @@
 from flask import render_template, request, redirect, url_for
 from flask_login import current_user
 from sqlalchemy.sql import text
-from application import app, db, login_manager
+from application import app, db, login_manager, login_required
 from application.auth.models import User
 from application.tapahtuma.forms import TapahtumaForm
 from application.tapahtuma.models import Tapahtuma
 from application.joukkue.models import Joukkue
 
-@app.route("/vedot", methods=["GET"])
+@app.route("/vedot", methods=["GET","POST"])
+@login_required(role="ADMIN")
 def vedot_index():
     return render_template("vedot/vedot.html", vedot=User.find_vedot_byUser(current_user.id))
 
