@@ -39,7 +39,7 @@
     box-shadow: 0 3px 6px 0 rgba(0,0,0,0.2), 0 2px 6px 0 rgba(0,0,0,0.18);
 }
 </style>
-<p><b>Monivetokohteet</b></p>
+<p><b>Monivetokohteet ja kertoimet tapahtumille:</b></p>
 <br>
 <form method="POST" action="{{ url_for('ready_moniveto', live=live, sorted=sorted) }}">
   <table>
@@ -129,11 +129,13 @@
 <table>
         <tr>
           <tr></tr>
-          <td>1 = Kotivoitto</td>
+          <td>Veikkaa haluamiasi tapahtumia asettamalla valintaruutuun jokin merkeistä <b>1</b>, <b>X</b> tai <b>2</b>.</td>
           <tr></tr>
-          <td>2 = Vierasvoitto</td>
+          <td><b>1</b> = Kotivoitto</td>
           <tr></tr>
-          <td>X = Tasapeli</td>
+          <td><b>2</b> = Vierasvoitto</td>
+          <tr></tr>
+          <td><b>X</b> = Tasapeli</td>
         
         </tr>
         </table>
