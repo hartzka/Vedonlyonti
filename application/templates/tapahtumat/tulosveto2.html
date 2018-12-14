@@ -30,8 +30,9 @@
               <tr>
           <th>{{ tapahtuma.koti }}-</th>
           <th>{{ tapahtuma.vieras }}</th>
+          <tr></tr>
           <td>{{ tapahtuma.laji }}</td>
-          <td>{{ tapahtuma.date_expire }}</td>
+          <td>Ratkeaa: {{ tapahtuma.date_expire }}</td>
           </tr>
           </table>
         
@@ -39,11 +40,19 @@
                 <td>Koti:{{ form.tulosveto_koti }}</td>
                 <td>Vieras:{{ form.tulosveto_vieras }}</td>
               </tr>
-       
+       <tr></tr>
             <td>{{ form.panos.label }}</td>
             <td>{{ form.panos }}</td>
             <td></td>
         
+            <table style="background-color: antiquewhite; margin: 10px">
+                <tr>
+                    <td>Veikkaa koti- ja vierasjoukkueiden maalimäärää ja aseta panos vedolle.</td>
+                    <tr></tr>
+                    <td>Kerroin määräytyy myöhemmin vedon todennäköisyyden perusteella.</td>
+                    
+                </tr>
+                </table>
           <tr>
             <td colspan="2">
         <input type="submit" class="btn-blue" value="Vahvista veto"/>

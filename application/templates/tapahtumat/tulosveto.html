@@ -47,7 +47,7 @@
           <th>{{ tapahtuma1.koti }}-</th>
           <th>{{ tapahtuma1.vieras }}</th>
           <td>{{ tapahtuma1.laji }}</td>
-          <td>{{ tapahtuma1.date_expire }}</td>
+          <td>Ratkeaa: {{ tapahtuma1.date_expire }}</td>
           </tr>
           <form method="POST" action="{{ url_for('ready_tulosveto', tapahtuma_id=tapahtuma1.id) }}">
           <tr>
