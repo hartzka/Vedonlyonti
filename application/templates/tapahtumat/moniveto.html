@@ -45,8 +45,8 @@
 <br>
 <form method="POST" action="{{ url_for('ready_moniveto', live=live, sorted=sorted) }}">
   <table>
-
-        <tr style="background-color: #dddddd">
+        <div style="background-color: #dddddd; margin: 15px">
+        <tr>
           <th>{{ tapahtuma1.koti }}-</th>
           <th>{{ tapahtuma1.vieras }}</th>
           <td>{{ tapahtuma1.laji }}</td>
@@ -62,10 +62,10 @@
           
           </tr>
 
-          <tr></tr>
-          <tr></tr>
+        </div>
           
-          <tr style="background-color: #dddddd">
+        <div style="background-color: #dddddd; margin: 15px">
+          <tr>
             <th>{{ tapahtuma2.koti }}-</th>
             <th>{{ tapahtuma2.vieras }}</th>
             <td>{{ tapahtuma2.laji }}</td>
@@ -80,10 +80,10 @@
             <td>2: {{ tapahtuma2.kerroin2 }}</td>
             
               </tr>
-              <tr></tr>
-              <tr></tr>
+        </div>
 
-            <tr style="background-color: #dddddd">
+        <div style="background-color: #dddddd; margin: 15px">
+            <tr>
                 <th>{{ tapahtuma3.koti }}-</th>
                 <th>{{ tapahtuma3.vieras }}</th>
                 <td>{{ tapahtuma3.laji }}</td>
@@ -98,10 +98,10 @@
                 <td>2: {{ tapahtuma3.kerroin2 }}</td>
                 
           </tr>
-          <tr></tr>
-          <tr></tr>
+         </div>
 
-          <tr style="background-color: #dddddd">
+         <div style="background-color: #dddddd; margin: 15px">
+          <tr>
             <th>{{ tapahtuma4.koti }}-</th>
           <th>{{ tapahtuma4.vieras }}</th>
           <td>{{ tapahtuma4.laji }}</td>
@@ -116,10 +116,10 @@
           <td>2: {{ tapahtuma4.kerroin2 }}</td>
           
             </tr>
-            <tr></tr>
-            <tr></tr>
+            </div>
 
-            <tr style="background-color: #dddddd">
+            <div style="background-color: #dddddd; margin: 15px">
+            <tr>
                 <th>{{ tapahtuma5.koti }}-</th>
           <th>{{ tapahtuma5.vieras }}</th>
           <td>{{ tapahtuma5.laji }}</td>
@@ -134,10 +134,10 @@
           <td>2: {{ tapahtuma5.kerroin2 }}</td>
           
                 </tr>
-                <tr></tr>
-                <tr></tr>
+                </div>
+                <div style="background-color: #dddddd; margin: 15px">
             
-                <tr style="background-color: #dddddd">
+                <tr>
                     <th>{{ tapahtuma6.koti }}-</th>
           <th>{{ tapahtuma6.vieras }}</th>
           <td>{{ tapahtuma6.laji }}</td>
@@ -151,8 +151,7 @@
           <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
           <td>2: {{ tapahtuma6.kerroin2 }}</td>
                     </tr>
-                    <tr></tr>
-                    <tr></tr>
+                    </div>
       
           <tr>
             <td colspan="2">
