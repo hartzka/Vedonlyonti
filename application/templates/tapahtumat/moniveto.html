@@ -45,7 +45,7 @@
 <br>
 <form method="POST" action="{{ url_for('ready_moniveto', live=live, sorted=sorted) }}">
   <table>
-        <div style="background-color: #dddddd; margin: 15px">
+        <table style="background-color: #dddddd; margin: 15px">
         <tr>
           <th>{{ tapahtuma1.koti }}-</th>
           <th>{{ tapahtuma1.vieras }}</th>
@@ -62,9 +62,9 @@
           
           </tr>
 
-        </div>
+        </table>
           
-        <div style="background-color: #dddddd; margin: 15px">
+        <table style="background-color: #dddddd; margin: 15px">
           <tr>
             <th>{{ tapahtuma2.koti }}-</th>
             <th>{{ tapahtuma2.vieras }}</th>
@@ -80,7 +80,7 @@
             <td>2: {{ tapahtuma2.kerroin2 }}</td>
             
               </tr>
-        </div>
+            </table>
 
         <div style="background-color: #dddddd; margin: 15px">
             <tr>
