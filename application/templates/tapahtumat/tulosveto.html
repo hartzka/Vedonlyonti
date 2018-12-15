@@ -43,10 +43,12 @@
 <br>
   <table>
         {% if tapahtuma1.koti %}
+        <table style="background-color: #dddddd; margin: 15px">
         <tr>
           <th>{{ tapahtuma1.koti }}-</th>
           <th>{{ tapahtuma1.vieras }}</th>
           <td>{{ tapahtuma1.laji }}</td>
+          <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
           <td>Ratkeaa: {{ tapahtuma1.date_expire }}</td>
           </tr>
           <form method="POST" action="{{ url_for('ready_tulosveto', tapahtuma_id=tapahtuma1.id) }}">
@@ -56,12 +58,15 @@
                 </td>
               </tr>
           </form>
+        </table>
           {% endif %}
           {% if tapahtuma2.koti %}
+          <table style="background-color: #dddddd; margin: 15px">
           <tr>
               <th>{{ tapahtuma2.koti }}-</th>
               <th>{{ tapahtuma2.vieras }}</th>
               <td>{{ tapahtuma2.laji }}</td>
+              <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
               <td>Ratkeaa: {{ tapahtuma2.date_expire }}</td>
               </tr>
               <form method="POST" action="{{ url_for('ready_tulosveto', tapahtuma_id=tapahtuma2.id) }}">
@@ -71,12 +76,15 @@
                     </td>
                   </tr>
               </form>
+              </table>
               {% endif %}
               {% if tapahtuma3.koti %}
+              <table style="background-color: #dddddd; margin: 15px">
               <tr>
           <th>{{ tapahtuma3.koti }}-</th>
           <th>{{ tapahtuma3.vieras }}</th>
           <td>{{ tapahtuma3.laji }}</td>
+          <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
           <td>Ratkeaa: {{ tapahtuma3.date_expire }}</td>
           </tr>
           <form method="POST" action="{{ url_for('ready_tulosveto', tapahtuma_id=tapahtuma3.id) }}">
@@ -86,12 +94,15 @@
                 </td>
               </tr>
           </form>
+          </table>
           {% endif %}
           {% if tapahtuma4.koti %}
+          <table style="background-color: #dddddd; margin: 15px">
           <tr>
             <th>{{ tapahtuma4.koti }}-</th>
             <th>{{ tapahtuma4.vieras }}</th>
             <td>{{ tapahtuma4.laji }}</td>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
             <td>Ratkeaa: {{ tapahtuma4.date_expire }}</td>
             </tr>
             <form method="POST" action="{{ url_for('ready_tulosveto', tapahtuma_id=tapahtuma4.id) }}">
@@ -101,15 +112,18 @@
                   </td>
                 </tr>
             </form>
+            </table>
             {% endif %}
             {% if tapahtuma5.koti %}
+            <table style="background-color: #dddddd; margin: 15px">
             <tr>
                 <th>{{ tapahtuma5.koti }}-</th>
                 <th>{{ tapahtuma5.vieras }}</th>
                 <td>{{ tapahtuma5.laji }}</td>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
                 <td>Ratkeaa: {{ tapahtuma5.date_expire }}</td>
                 </tr>
-                {% if tapahtuma5.koti %}
+
                 <form method="POST" action="{{ url_for('ready_tulosveto', tapahtuma_id=tapahtuma5.id) }}">
                 <tr>
                       <td colspan="2">
@@ -117,13 +131,15 @@
                       </td>
                     </tr>
                 </form>
-                {% endif %}
+                </table>
                 {% endif %}
                 {% if tapahtuma6.koti %}
+                <table style="background-color: #dddddd; margin: 15px">
                 <tr>
                     <th>{{ tapahtuma6.koti }}-</th>
                     <th>{{ tapahtuma6.vieras }}</th>
                     <td>{{ tapahtuma6.laji }}</td>
+                    <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
                     <td>Ratkeaa: {{ tapahtuma6.date_expire }}</td>
                     </tr>
                     <form method="POST" action="{{ url_for('ready_tulosveto', tapahtuma_id=tapahtuma6.id) }}">
@@ -133,6 +149,7 @@
                           </td>
                         </tr>
                     </form>
+                    </table>
                     {% endif %}
 
                     <form method="POST" action="{{ url_for('group_tulosveto_byLaji') }}">
