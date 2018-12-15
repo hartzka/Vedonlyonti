@@ -134,25 +134,11 @@ def arvoUusiTapahtuma(oldId, live):
         
         tj1 = Tapahtumajoukkue(True, home_attack, home_defence, home_tactic, joukkueet[0]["id"], t.id)
         tj2 = Tapahtumajoukkue(False, away_attack, away_defence, away_tactic, joukkueet[j]["id"], t.id)
-        laji = haeLaji(joukkueet[0]["laji_id"])
+        laji = Laji.haeLaji(joukkueet[0]["laji_id"])
         
         result.append({"koti":joukkueet[0]["nimi"], "vieras":joukkueet[j]["nimi"], "laji":joukkueet[0]["laji_id"], "kerroin1":kerroin1, "kerroin2":kerroin2, "kerroinX":kerroinX, "date_expire":t.date_expire, "tj1":tj1, "tj2":tj2, "old":oldId, "id":t.id, "live":t.live})
     
         return result 
-
-def haeLaji(laji_id=0):
-        stmt = text("SELECT nimi"
-                    " FROM laji"
-                     " WHERE id = :id"
-                     ).params(id = laji_id)
-        res = db.engine.execute(stmt)
-        response = []
-        
-        for row in res:
-            response.append({"nimi":row[0]})
-
-        return response[0]["nimi"]     
-
 
 
 class Tapahtuma(Base):
@@ -309,7 +295,7 @@ class Tapahtuma(Base):
         for row in res:
             d = str(datetime.strptime(str(row[7]), '%Y-%m-%d %H:%M:%S.%f'))
             d = d[0:16]
-            response.append({"id":row[0], "koti":row[1], "vieras":row[2], "laji":haeLaji(row[3]), "kerroin1":row[4], "kerroin2":row[5], "kerroinX":row[6], "date_expire":d})
+            response.append({"id":row[0], "koti":row[1], "vieras":row[2], "laji":Laji.haeLaji(row[3]), "kerroin1":row[4], "kerroin2":row[5], "kerroinX":row[6], "date_expire":d})
                 
         return response
 
@@ -331,7 +317,7 @@ class Tapahtuma(Base):
         for row in res:
             d = str(datetime.strptime(str(row[7]), '%Y-%m-%d %H:%M:%S.%f'))
             d = d[0:16]
-            response.append({"id":row[0], "koti":row[1], "vieras":row[2], "laji":haeLaji(row[3]), "kerroin1":row[4], "kerroin2":row[5], "kerroinX":row[6], "date_expire":d})
+            response.append({"id":row[0], "koti":row[1], "vieras":row[2], "laji":Laji.haeLaji(row[3]), "kerroin1":row[4], "kerroin2":row[5], "kerroinX":row[6], "date_expire":d})
         
         while(len(response) < 6):
             response.append({})
@@ -356,7 +342,7 @@ class Tapahtuma(Base):
         for row in res:
             d = str(datetime.strptime(str(row[7]), '%Y-%m-%d %H:%M:%S.%f'))
             d = d[0:16]
-            response.append({"id":row[0], "koti":row[1], "vieras":row[2], "laji":haeLaji(row[3]), "kerroin1":row[4], "kerroin2":row[5], "kerroinX":row[6], "date_expire":d})
+            response.append({"id":row[0], "koti":row[1], "vieras":row[2], "laji":Laji.haeLaji(row[3]), "kerroin1":row[4], "kerroin2":row[5], "kerroinX":row[6], "date_expire":d})
         
         while(len(response) < 6):
             response.append({})
@@ -384,7 +370,7 @@ class Tapahtuma(Base):
         for row in res:
             d = str(datetime.strptime(str(row[7]), '%Y-%m-%d %H:%M:%S.%f'))
             d = d[0:16]
-            response.append({"id":row[0], "koti":row[1], "vieras":row[2], "laji":haeLaji(row[3]), "kerroin1":row[4], "kerroin2":row[5], "kerroinX":row[6], "date_expire":d})
+            response.append({"id":row[0], "koti":row[1], "vieras":row[2], "laji":Laji.haeLaji(row[3]), "kerroin1":row[4], "kerroin2":row[5], "kerroinX":row[6], "date_expire":d})
                 
         return response
     
@@ -409,7 +395,7 @@ class Tapahtuma(Base):
         for row in res:
             d = str(datetime.strptime(str(row[7]), '%Y-%m-%d %H:%M:%S.%f'))
             d = d[0:16]
-            response.append({"id":row[0], "koti":row[1], "vieras":row[2], "laji":haeLaji(row[3]), "kerroin1":row[4], "kerroin2":row[5], "kerroinX":row[6], "date_expire":d})
+            response.append({"id":row[0], "koti":row[1], "vieras":row[2], "laji":Laji.haeLaji(row[3]), "kerroin1":row[4], "kerroin2":row[5], "kerroinX":row[6], "date_expire":d})
                 
                 
         return response
@@ -438,7 +424,7 @@ class Tapahtuma(Base):
             res2 = db.engine.execute(stmt2)
 
             for row2 in res2:
-                response.append({"tapahtumaveto_id":row[2], "tapahtuma_id":row2[0], "koti":row2[1], "vieras":row2[2], "laji":haeLaji(row2[3]), "kerroin1":row2[4], "kerroin2":row2[5], "kerroinX":row2[6], "veikkaus":row[0]})
+                response.append({"tapahtumaveto_id":row[2], "tapahtuma_id":row2[0], "koti":row2[1], "vieras":row2[2], "laji":Laji.haeLaji(row2[3]), "kerroin1":row2[4], "kerroin2":row2[5], "kerroinX":row2[6], "veikkaus":row[0]})
 
         while(len(response)<6):
             response.append({"veikkaus":"-", "tapahtumaveto_id":0})        
