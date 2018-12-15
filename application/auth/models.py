@@ -65,8 +65,6 @@ class User(Base):
 
     @staticmethod
     def find_vedot_byUser(user_id):
-        #lista[veto]
-        #veto = lista[nimi, veikkaus, koti, vieras, tulos, panos, kerroin, ratkeaa]
         stmt = text("SELECT id, panos, kerroin, voitto FROM veto"
                      " WHERE veto.account_id = :id"
                      ).params(id=user_id)
@@ -131,8 +129,6 @@ class User(Base):
     
     @staticmethod
     def find_veto_byId(user_id, veto_id):
-        #lista[veto]
-        #veto = lista[nimi, veikkaus, koti, vieras, tulos, panos, kerroin, ratkeaa]
         stmt = text("SELECT id, panos, kerroin, voitto FROM veto"
                      " WHERE veto.account_id = :user_id"
                      " AND veto.id = :veto_id"

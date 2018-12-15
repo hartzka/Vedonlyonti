@@ -13,34 +13,23 @@ from application.auth.models import User
 from flask_login import current_user
 from application.tapahtumaveto.models import Tapahtumaveto
 from application.tilitapahtuma.models import Tilitapahtuma
+from application.joukkue.models import Joukkue
 
-def haeVapaatJoukkueet():
-        stmt = text("SELECT id, nimi, attack, defence, tactic, laji_id"
-                    " FROM joukkue"
-                     " WHERE id NOT IN (SELECT tapahtumajoukkue.joukkue_id"
-                     " FROM tapahtumajoukkue)"
-                     )
-        res = db.engine.execute(stmt)
-        response = []
-        
-        for row in res:
-            response.append({"id":row[0], "nimi":row[1], "attack":row[2], "defence":row[3], "tactic":row[4], "laji_id":row[5]})
-        return response
 
 def arvoUusiTapahtuma(oldId, live):
-        joukkueet = haeVapaatJoukkueet()
+        joukkueet = Joukkue.haeVapaatJoukkueet()
         result = []
         if (len(joukkueet) == 0):
-            result.append({"old":-1}) #ei vapaita
+            result.append({"old":-1}) #ei vapaita joukkueita
             return result
         shuffle(joukkueet)
         stmt = text("SELECT max(id) FROM tapahtuma")
         res = db.engine.execute(stmt)
-        uid = 0
+        uusi_id = 0
         for row in res:
             if type(row[0]) == int:
-                uid = row[0]
-        uid = uid+1    
+                uusi_id = row[0]
+        uusi_id = uusi_id+1    
         
         
         home_motivation = 1
@@ -141,7 +130,7 @@ def arvoUusiTapahtuma(oldId, live):
         t = Tapahtuma(joukkueet[0]["nimi"], joukkueet[j]["nimi"],
         joukkueet[0]["laji_id"], kerroin1, kerroinX, kerroin2, datetime.now()+timedelta(seconds=se),
         True, live)
-        t.id = uid
+        t.id = uusi_id
         
         tj1 = Tapahtumajoukkue(True, home_attack, home_defence, home_tactic, joukkueet[0]["id"], t.id)
         tj2 = Tapahtumajoukkue(False, away_attack, away_defence, away_tactic, joukkueet[j]["id"], t.id)

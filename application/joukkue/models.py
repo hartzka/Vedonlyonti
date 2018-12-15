@@ -20,7 +20,21 @@ class Joukkue(Base):
         self.defence = defence
         self.tactic = tactic
 
-    
+    @staticmethod
+    def haeVapaatJoukkueet():
+        stmt = text("SELECT id, nimi, attack, defence, tactic, laji_id"
+                    " FROM joukkue"
+                     " WHERE id NOT IN (SELECT tapahtumajoukkue.joukkue_id"
+                     " FROM tapahtumajoukkue)"
+                     )
+        res = db.engine.execute(stmt)
+        response = []
+        
+        for row in res:
+            response.append({"id":row[0], "nimi":row[1], "attack":row[2], "defence":row[3], "tactic":row[4], "laji_id":row[5]})
+        return response
+
+
     @staticmethod
     def findJoukkueetInVedot():
         stmt = text("select koti, vieras from tapahtuma"

@@ -4,7 +4,6 @@ from flask_login import login_user, logout_user
 from application import app, db
 from application.auth.models import User
 from application.auth.forms import LoginForm
-import random
 
 @app.route("/auth/login", methods = ["GET", "POST"])
 def auth_login():
@@ -12,7 +11,6 @@ def auth_login():
         return render_template("auth/loginform.html", form = LoginForm())
 
     form = LoginForm(request.form)
-    # mahdolliset validoinnit
 
     user = User.query.filter_by(username=form.tunnus.data, password=form.salasana.data).first()
     if not user:
