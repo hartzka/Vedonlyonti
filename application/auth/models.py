@@ -72,7 +72,7 @@ class User(Base):
 
         response = []
         for row in res:
-            v = []
+            vedot = []
             row3 = []
             active = 1
             non_actives = False
@@ -105,7 +105,7 @@ class User(Base):
                         ratkeaa = new_ratkeaa
                     if(actives == True and non_actives == True):
                         active=2
-                v.append({"veikkaus":row2[1], "koti":row3[0], "vieras":row3[1], "tulos":row3[2]})
+                vedot.append({"veikkaus":row2[1], "koti":row3[0], "vieras":row3[1], "tulos":row3[2]})
     
             
             if (ratkeaa < datetime.now()):
@@ -123,7 +123,7 @@ class User(Base):
             else :
                 ratkeaa = str(str(ratkeaa)[0:16])
                 
-            response.append({"id":row[0], "nimi": nimi, "tapahtumavedot": v, "panos":row[1] , "kerroin":kerroin, "ratkeaa":ratkeaa, "active":active})   
+            response.append({"id":row[0], "nimi": nimi, "tapahtumavedot": vedot, "panos":row[1] , "kerroin":kerroin, "ratkeaa":ratkeaa, "active":active})   
   
         return response
     
