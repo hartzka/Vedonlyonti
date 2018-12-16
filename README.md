@@ -11,3 +11,5 @@ Tapahtumat on mahdollista lajitella lajin mukaan, ja vedot-valikossa pystyy list
 Livevetomahdollisuuskin on, jolloin tulosta ei tarvitse odottaa, vaan se ratkeaa hyvin lyhyen ajan sisällä.
 
 heroku: http://vedonlyonti.herokuapp.com/
+
+[Dokumentaatio](documentation)
