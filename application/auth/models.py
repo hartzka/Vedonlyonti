@@ -45,9 +45,9 @@ class User(Base):
 
         response = []
         for row in res:
-            time = str(datetime.strptime(str(row[1]), '%Y-%m-%d %H:%M:%S.%f'))
-            time = time[0:16]
-            response.append({"siirto":row[0], "date_created":time, "info":row[3]})
+            date = str(datetime.strptime(str(row[1]), '%Y-%m-%d %H:%M:%S.%f'))
+            date = date[0:16]
+            response.append({"siirto":row[0], "date_created":date, "info":row[3]})
 
         return response
 
@@ -77,13 +77,13 @@ class User(Base):
             active = 1
             non_actives = False
             actives = False
-            ker = row[2]
-            ker = ("%.2f" % ker)
+            kerroin = row[2]
+            kerroin = ("%.2f" % kerroin)
             stmt2 = text("SELECT name, veikkaus, veto_id, tapahtuma_id FROM tapahtumaveto"
                      " WHERE tapahtumaveto.veto_id = :id"
                      ).params(id=row[0]) #veto.id
             res2 = db.engine.execute(stmt2)
-            ratk = datetime.now()-timedelta(minutes = 60)
+            ratkeaa = datetime.now()-timedelta(minutes = 60)
             nimi = ""
             for row2 in res2:
                 nimi = row2[0]
@@ -100,30 +100,30 @@ class User(Base):
                         active = 0
                     else:
                         actives = True
-                    uratk = datetime.strptime(str(row3[3]), '%Y-%m-%d %H:%M:%S.%f')
-                    if uratk > ratk:
-                        ratk = uratk
+                    new_ratkeaa = datetime.strptime(str(row3[3]), '%Y-%m-%d %H:%M:%S.%f')
+                    if new_ratkeaa > ratkeaa:
+                        ratkeaa = new_ratkeaa
                     if(actives == True and non_actives == True):
                         active=2
                 v.append({"veikkaus":row2[1], "koti":row3[0], "vieras":row3[1], "tulos":row3[2]})
     
             
-            if (ratk < datetime.now()):
+            if (ratkeaa < datetime.now()):
                 
                 if (row3[2] == "kesken"):
-                    ratk = "kesken"
+                    ratkeaa = "kesken"
                 else:
-                    ratk = "ratkennut"
+                    ratkeaa = "ratkennut"
                   
                     if (int(row[3]) > 0):
-                        ratk += ", voitto: "
-                        ratk += str(row[3])
+                        ratkeaa += ", voitto: "
+                        ratkeaa += str(row[3])
                     else:
-                        ratk += ", ei voittoa"
+                        ratkeaa += ", ei voittoa"
             else :
-                ratk = str(str(ratk)[0:16])
+                ratkeaa = str(str(ratkeaa)[0:16])
                 
-            response.append({"id":row[0], "nimi": nimi, "tapahtumavedot": v, "panos":row[1] , "kerroin":ker, "ratkeaa":ratk, "active":active})   
+            response.append({"id":row[0], "nimi": nimi, "tapahtumavedot": v, "panos":row[1] , "kerroin":kerroin, "ratkeaa":ratkeaa, "active":active})   
   
         return response
     
@@ -137,7 +137,7 @@ class User(Base):
 
         response = []
         for row in res:
-            v = []
+            vedot = []
             row3 = []
             active = 0
             stmt2 = text("SELECT name, veikkaus, veto_id, tapahtuma_id FROM tapahtumaveto"
@@ -159,10 +159,10 @@ class User(Base):
                     if (str(row3[4]) == "1"):
                         active = 1  
                     
-                v.append({"veikkaus":row2[1], "koti":row3[0], "vieras":row3[1], "tulos":row3[2]})
+                vedot.append({"veikkaus":row2[1], "koti":row3[0], "vieras":row3[1], "tulos":row3[2]})
 
-            ratk = "kesken"    
-            response.append({"id":row[0], "nimi": nimi, "tapahtumavedot": v, "panos":row[1] , "kerroin":row[2] , "ratkeaa":ratk, "active":active})   
+            ratkeaa = "kesken"    
+            response.append({"id":row[0], "nimi": nimi, "tapahtumavedot": vedot, "panos":row[1] , "kerroin":row[2] , "ratkeaa":ratkeaa, "active":active})   
             
         return response
     

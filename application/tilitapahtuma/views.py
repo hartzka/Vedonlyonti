@@ -25,8 +25,8 @@ def delete_tilitapahtumat():
 @app.route("/tilitapahtumat/<tilitapahtuma_id>/", methods=["POST"])
 def add_to_game_account(tilitapahtuma_id):
 
-    t = Tilitapahtuma.query.get(tilitapahtuma_id)
-    if t.account_id != current_user.id:
+    tilitapahtuma = Tilitapahtuma.query.get(tilitapahtuma_id)
+    if tilitapahtuma.account_id != current_user.id:
         return login_manager.unauthorized()
     
     return redirect(url_for("tilitapahtumat_index"))
@@ -42,11 +42,11 @@ def tilitapahtuma_pelitilille():
         return render_template("tilitapahtumat/new.html", tilisiirtoform = form, pankkisiirtoform = PankkisiirtoForm(),
         tilitapahtumat = User.find_tilitapahtumat_byUser(current_user.id),error = "Anna positiivinen kokonaisluku, max 10000")
 
-    t = Tilitapahtuma("Siirto pelitilille", form.tilisiirto.data)
-    t.account_id = current_user.id
+    tilitapahtuma = Tilitapahtuma("Siirto pelitilille", form.tilisiirto.data)
+    tilitapahtuma.account_id = current_user.id
     current_user.rahat += form.tilisiirto.data
 
-    db.session().add(t)
+    db.session().add(tilitapahtuma)
     db.session().commit()
     
     return redirect(url_for("tilitapahtumat_index"))
@@ -59,11 +59,11 @@ def tilitapahtuma_pankkitilille():
         return render_template("tilitapahtumat/new.html", pankkisiirtoform = form, tilisiirtoform = TilisiirtoForm(), 
         tilitapahtumat = User.find_tilitapahtumat_byUser(current_user.id),error = "Anna positiivinen kokonaisluku, max 10000")
 
-    t = Tilitapahtuma("Siirto pankkitilille", form.pankkisiirto.data*(-1))
-    t.account_id = current_user.id
+    tilitapahtuma = Tilitapahtuma("Siirto pankkitilille", form.pankkisiirto.data*(-1))
+    tilitapahtuma.account_id = current_user.id
     current_user.rahat -= form.pankkisiirto.data
 
-    db.session().add(t)
+    db.session().add(tilitapahtuma)
     db.session().commit()
     
     return redirect(url_for("tilitapahtumat_index"))

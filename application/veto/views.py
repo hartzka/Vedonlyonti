@@ -22,9 +22,9 @@ def delete_veto(veto_id):
     for row in res:
         tapahtumavedot.append(row[0])
     
-    for t_id in tapahtumavedot:
+    for tapahtuma_id in tapahtumavedot:
         stmt2 = text("DELETE FROM tapahtumaveto WHERE id = :id"
-        ).params(id=t_id)
+        ).params(id=tapahtuma_id)
         db.engine.execute(stmt2)
 
     stmt3 = text("DELETE FROM veto WHERE id = :id"
@@ -52,22 +52,22 @@ def update_veto(veto_id, name):
         tapahtuma6=tapahtumat[5], veto_id=veto_id)
     elif(name=="tulosveto"):
         veikkaus = tapahtumat[0]["veikkaus"]
-        vkoti = "" #veikkauskoti
-        vvieras = "" #veikkausvieras
+        veikkaus_koti = "" #veikkauskoti
+        veikkaus_vieras = "" #veikkausvieras
         if (veikkaus[1]=="-"):
-            vkoti = str(veikkaus[0])
+            veikkaus_koti = str(veikkaus[0])
             if (len(veikkaus) > 3):
-                vvieras = "10+"
+                veikkaus_vieras = "10+"
             else:
-                vvieras = str(veikkaus[2])
+                veikkaus_vieras = str(veikkaus[2])
         else:
-            vkoti = "10+"
+            veikkaus_koti = "10+"
             if (len(veikkaus) > 5):
-                vvieras = "10+"
+                veikkaus_vieras = "10+"
             else:
-                vvieras = str(veikkaus[4])
-        form.tulosveto_koti.default = vkoti
-        form.tulosveto_vieras.default = vvieras
+                veikkaus_vieras = str(veikkaus[4])
+        form.tulosveto_koti.default = veikkaus_koti
+        form.tulosveto_vieras.default = veikkaus_vieras
         form.process()
         return render_template("tapahtumat/tulosveto_update.html", form=form, 
         tapahtuma=tapahtumat[0], veto_id=veto_id)

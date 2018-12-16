@@ -30,8 +30,6 @@ class Moniveto:
     def setMonivetokerroin(self,mv):
         self.monivetokerroin = mv
 
-    
-    
 moniveto = Moniveto()
 
 @app.route("/tapahtuma/moniveto", methods=["GET"])
@@ -75,102 +73,102 @@ def ready_moniveto(live, sorted):
         return redirect(url_for("tapahtumat_moniveto"))
     if (int(sorted)==0):
         if (int(live)==1):
-            tap = Tapahtuma.haeMonivetoTapahtumat(True)
+            monivedot = Tapahtuma.haeMonivetoTapahtumat(True)
         else:
-            tap = Tapahtuma.haeMonivetoTapahtumat(False)
+            monivedot = Tapahtuma.haeMonivetoTapahtumat(False)
         
     else:
         if(int(live)==1):
-            tap = Tapahtuma.haeMonivetoTapahtumat_groupByLaji(True)
+            monivedot = Tapahtuma.haeMonivetoTapahtumat_groupByLaji(True)
         else:
-            tap = Tapahtuma.haeMonivetoTapahtumat_groupByLaji(False)
+            monivedot = Tapahtuma.haeMonivetoTapahtumat_groupByLaji(False)
         
     tapahtumat = []
     kerroin = 1
     if(t1!="-"):
-        t = tap[0]
-        tkerroin = 1 #tamakerroin
+        tapahtuma = monivedot[0]
+        tama_kerroin = 1 #tamakerroin
         if (t1 == "1"):
-            kerroin = kerroin*t["kerroin1"]
-            tkerroin = t["kerroin1"]
+            kerroin = kerroin*tapahtuma["kerroin1"]
+            tama_kerroin = tapahtuma["kerroin1"]
         elif (t1 == "X"):
-            kerroin = kerroin*t["kerroinX"]
-            tkerroin = t["kerroinX"]
+            kerroin = kerroin*tapahtuma["kerroinX"]
+            tama_kerroin = tapahtuma["kerroinX"]
         elif (t1 == "2"):
-            kerroin = kerroin*t["kerroin2"]
-            tkerroin = t["kerroin2"]
-        tkerroin = ("%.2f" % tkerroin)
-        tapahtumat.append({"id":t["id"], "koti":t["koti"], "vieras":t["vieras"], "laji":t["laji"], "kerroin":tkerroin, "date_expire":t["date_expire"], "veto":t1})
+            kerroin = kerroin*tapahtuma["kerroin2"]
+            tama_kerroin = tapahtuma["kerroin2"]
+        tama_kerroin = ("%.2f" % tama_kerroin)
+        tapahtumat.append({"id":tapahtuma["id"], "koti":tapahtuma["koti"], "vieras":tapahtuma["vieras"], "laji":tapahtuma["laji"], "kerroin":tama_kerroin, "date_expire":tapahtuma["date_expire"], "veto":t1})
     if(t2!="-"):
-        t = tap[1]
-        tkerroin = 1
+        tapahtuma = monivedot[1]
+        tama_kerroin = 1
         if (t2 == "1"):
-            kerroin = kerroin*t["kerroin1"]
-            tkerroin = t["kerroin1"]
+            kerroin = kerroin*tapahtuma["kerroin1"]
+            tama_kerroin = tapahtuma["kerroin1"]
         elif (t2 == "X"):
-            kerroin = kerroin*t["kerroinX"]
-            tkerroin = t["kerroinX"]
+            kerroin = kerroin*tapahtuma["kerroinX"]
+            tama_kerroin = tapahtuma["kerroinX"]
         elif (t2 == "2"):
-            kerroin = kerroin*t["kerroin2"]
-            tkerroin = t["kerroin2"]  
-        tkerroin = ("%.2f" % tkerroin)  
-        tapahtumat.append({"id":t["id"], "koti":t["koti"], "vieras":t["vieras"], "laji":t["laji"], "kerroin":tkerroin, "date_expire":t["date_expire"], "veto":t2})
+            kerroin = kerroin*tapahtuma["kerroin2"]
+            tama_kerroin = tapahtuma["kerroin2"]  
+        tama_kerroin = ("%.2f" % tama_kerroin)  
+        tapahtumat.append({"id":tapahtuma["id"], "koti":tapahtuma["koti"], "vieras":tapahtuma["vieras"], "laji":tapahtuma["laji"], "kerroin":tama_kerroin, "date_expire":tapahtuma["date_expire"], "veto":t2})
     if(t3!="-"):
-        t = tap[2]
-        tkerroin = 1
+        tapahtuma = monivedot[2]
+        tama_kerroin = 1
         if (t3 == "1"):
-            kerroin = kerroin*t["kerroin1"]
-            tkerroin = t["kerroin1"]
+            kerroin = kerroin*tapahtuma["kerroin1"]
+            tama_kerroin = tapahtuma["kerroin1"]
         elif (t3 == "X"):
-            kerroin = kerroin*t["kerroinX"]
-            tkerroin = t["kerroinX"]
+            kerroin = kerroin*tapahtuma["kerroinX"]
+            tama_kerroin = tapahtuma["kerroinX"]
         elif (t3 == "2"):
-            kerroin = kerroin*t["kerroin2"]
-            tkerroin = t["kerroin2"]     
-        tkerroin = ("%.2f" % tkerroin)
-        tapahtumat.append({"id":t["id"], "koti":t["koti"], "vieras":t["vieras"], "laji":t["laji"], "kerroin":tkerroin, "date_expire":t["date_expire"], "veto":t3})
+            kerroin = kerroin*tapahtuma["kerroin2"]
+            tama_kerroin = tapahtuma["kerroin2"]     
+        tama_kerroin = ("%.2f" % tama_kerroin)
+        tapahtumat.append({"id":tapahtuma["id"], "koti":tapahtuma["koti"], "vieras":tapahtuma["vieras"], "laji":tapahtuma["laji"], "kerroin":tama_kerroin, "date_expire":tapahtuma["date_expire"], "veto":t3})
     if(t4!="-"):
-        t = tap[3]
-        tkerroin = 1
+        tapahtuma = monivedot[3]
+        tama_kerroin = 1
         if (t4 == "1"):
-            kerroin = kerroin*t["kerroin1"]
-            tkerroin = t["kerroin1"]
+            kerroin = kerroin*tapahtuma["kerroin1"]
+            tama_kerroin = tapahtuma["kerroin1"]
         elif (t4 == "X"):
-            kerroin = kerroin*t["kerroinX"]
-            tkerroin = t["kerroinX"]
+            kerroin = kerroin*tapahtuma["kerroinX"]
+            tama_kerroin = tapahtuma["kerroinX"]
         elif (t4 == "2"):
-            kerroin = kerroin*t["kerroin2"]
-            tkerroin = t["kerroin2"]     
-        tkerroin = ("%.2f" % tkerroin)
-        tapahtumat.append({"id":t["id"], "koti":t["koti"], "vieras":t["vieras"], "laji":t["laji"], "kerroin":tkerroin, "date_expire":t["date_expire"], "veto":t4})
+            kerroin = kerroin*tapahtuma["kerroin2"]
+            tama_kerroin = tapahtuma["kerroin2"]     
+        tama_kerroin = ("%.2f" % tama_kerroin)
+        tapahtumat.append({"id":tapahtuma["id"], "koti":tapahtuma["koti"], "vieras":tapahtuma["vieras"], "laji":tapahtuma["laji"], "kerroin":tama_kerroin, "date_expire":tapahtuma["date_expire"], "veto":t4})
     if(t5!="-"):
-        t = tap[4]
-        tkerroin = 1
+        tapahtuma = monivedot[4]
+        tama_kerroin = 1
         if (t5 == "1"):
-            kerroin = kerroin*t["kerroin1"]
-            tkerroin = t["kerroin1"]
+            kerroin = kerroin*tapahtuma["kerroin1"]
+            tama_kerroin = tapahtuma["kerroin1"]
         elif (t5 == "X"):
-            kerroin = kerroin*t["kerroinX"]
-            tkerroin = t["kerroinX"]
+            kerroin = kerroin*tapahtuma["kerroinX"]
+            tama_kerroin = tapahtuma["kerroinX"]
         elif (t5 == "2"):
-            kerroin = kerroin*t["kerroin2"]
-            tkerroin = t["kerroin2"] 
-        tkerroin = ("%.2f" % tkerroin)
-        tapahtumat.append({"id":t["id"], "koti":t["koti"], "vieras":t["vieras"], "laji":t["laji"], "kerroin":tkerroin, "date_expire":t["date_expire"], "veto":t5})
+            kerroin = kerroin*tapahtuma["kerroin2"]
+            tama_kerroin = tapahtuma["kerroin2"] 
+        tama_kerroin = ("%.2f" % tama_kerroin)
+        tapahtumat.append({"id":tapahtuma["id"], "koti":tapahtuma["koti"], "vieras":tapahtuma["vieras"], "laji":tapahtuma["laji"], "kerroin":tama_kerroin, "date_expire":tapahtuma["date_expire"], "veto":t5})
     if(t6!="-"):
-        t = tap[5]
-        tkerroin = 1
+        tapahtuma = monivedot[5]
+        tama_kerroin = 1
         if (t6 == "1"):
-            kerroin = kerroin*t["kerroin1"]
-            tkerroin = t["kerroin1"]
+            kerroin = kerroin*tapahtuma["kerroin1"]
+            tama_kerroin = tapahtuma["kerroin1"]
         elif (t6 == "X"):
-            kerroin = kerroin*t["kerroinX"]
-            tkerroin = t["kerroinX"]
+            kerroin = kerroin*tapahtuma["kerroinX"]
+            tama_kerroin = tapahtuma["kerroinX"]
         elif (t6 == "2"):
-            kerroin = kerroin*t["kerroin2"]
-            tkerroin = t["kerroin2"]
-        tkerroin = ("%.2f" % tkerroin)       
-        tapahtumat.append({"id":t["id"], "koti":t["koti"], "vieras":t["vieras"], "laji":t["laji"], "kerroin":tkerroin, "date_expire":t["date_expire"], "veto":t6})
+            kerroin = kerroin*tapahtuma["kerroin2"]
+            tama_kerroin = tapahtuma["kerroin2"]
+        tama_kerroin = ("%.2f" % tama_kerroin)       
+        tapahtumat.append({"id":tapahtuma["id"], "koti":tapahtuma["koti"], "vieras":tapahtuma["vieras"], "laji":tapahtuma["laji"], "kerroin":tama_kerroin, "date_expire":tapahtuma["date_expire"], "veto":t6})
     moniveto.setMonivetokerroin(kerroin)
     moniveto.setMonivetotapahtumat(tapahtumat)
     kerroin = ("%.2f" % float(kerroin))
@@ -188,15 +186,15 @@ def create_moniveto():
     panos = form.panos.data
     
     veto_id = Veto.haeVetoid()
-    v = Veto(panos, moniveto.monivetokerroin, current_user.id)
-    v.id = veto_id
+    veto = Veto(panos, moniveto.monivetokerroin, current_user.id)
+    veto.id = veto_id
     
     tapahtumat = moniveto.monivetotapahtumat
-    upanos = int(int(panos)*(-1))
+    new_panos = int(int(panos)*(-1))
     if (current_user.rahat < int(panos)):
         return redirect(url_for("index"))
-    db.session().add(v)
-    t = Tilitapahtuma("Peliosto", upanos)
+    db.session().add(veto)
+    t = Tilitapahtuma("Peliosto", new_panos)
     t.account_id = current_user.id
     current_user.rahat = current_user.rahat - int(panos)
     db.session().add(t)
@@ -205,8 +203,8 @@ def create_moniveto():
     for tapahtuma in tapahtumat:
         tapahtuma_id = tapahtuma["id"]
         veikkaus = tapahtuma["veto"]
-        tv = Tapahtumaveto(veikkaus, "moniveto", veto_id, tapahtuma_id)
-        db.session().add(tv)
+        tapahtumaveto = Tapahtumaveto(veikkaus, "moniveto", veto_id, tapahtuma_id)
+        db.session().add(tapahtumaveto)
     db.session().commit()
     return redirect(url_for("index"))
 
@@ -219,21 +217,21 @@ def create_tulosveto(tapahtuma_id):
     veikkaus = form.tulosveto_koti.data + "-" + form.tulosveto_vieras.data
     kerroin = Tapahtuma.haeTulosvetokerroin(tapahtuma_id,veikkaus)
     veto_id = Veto.haeVetoid()
-    v = Veto(panos, kerroin, current_user.id)
-    v.id = veto_id
+    veto = Veto(panos, kerroin, current_user.id)
+    veto.id = veto_id
     
     tapahtumat = moniveto.monivetotapahtumat
     upanos = int(int(panos)*(-1))
     
-    db.session().add(v)
-    t = Tilitapahtuma("Peliosto", upanos)
-    t.account_id = current_user.id
+    db.session().add(veto)
+    tilitapahtuma = Tilitapahtuma("Peliosto", upanos)
+    tilitapahtuma.account_id = current_user.id
     current_user.rahat = current_user.rahat - int(panos)
-    db.session().add(t)
+    db.session().add(tilitapahtuma)
     db.session().commit()
 
-    tv = Tapahtumaveto(veikkaus, "tulosveto", veto_id, tapahtuma_id)
-    db.session().add(tv)
+    tapahtumaveto = Tapahtumaveto(veikkaus, "tulosveto", veto_id, tapahtuma_id)
+    db.session().add(tapahtumaveto)
     db.session().commit()
     return redirect(url_for("index"))
 
@@ -249,80 +247,80 @@ def update_moniveto(veto_id):
    
     if (t1=="-" or t2=="-" or t3=="-" or t4=="-" or t5=="-" or t6=="-"):
         return redirect(url_for("index"))
-    tap = Tapahtuma.haeMonivetoTapahtumatByVetoId(veto_id) 
+    monivedot = Tapahtuma.haeMonivetoTapahtumatByVetoId(veto_id) 
     tapahtumat = []
     kerroin = 1
     if(t1!="-"):
-        t = tap[0]
+        tapahtuma = monivedot[0]
        
         if (t1 == "1"):
-            kerroin = kerroin*t["kerroin1"]
+            kerroin = kerroin*tapahtuma["kerroin1"]
             
         elif (t1 == "X"):
-            kerroin = kerroin*t["kerroinX"]
+            kerroin = kerroin*tapahtuma["kerroinX"]
             
         elif (t1 == "2"):
-            kerroin = kerroin*t["kerroin2"]
+            kerroin = kerroin*tapahtuma["kerroin2"]
              
     if(t2!="-" and t2!=""):
-        t = tap[1]
+        tapahtuma = monivedot[1]
       
         if (t2 == "1"):
-            kerroin = kerroin*t["kerroin1"]
+            kerroin = kerroin*tapahtuma["kerroin1"]
             
         elif (t2 == "X"):
-            kerroin = kerroin*t["kerroinX"]
+            kerroin = kerroin*tapahtuma["kerroinX"]
            
         elif (t2 == "2"):
-            kerroin = kerroin*t["kerroin2"]
+            kerroin = kerroin*tapahtuma["kerroin2"]
            
     if(t3!="-" and t3!=""):
-        t = tap[2]
+        tapahtuma = monivedot[2]
     
         if (t3 == "1"):
-            kerroin = kerroin*t["kerroin1"]
+            kerroin = kerroin*tapahtuma["kerroin1"]
             
         elif (t3 == "X"):
-            kerroin = kerroin*t["kerroinX"]
+            kerroin = kerroin*tapahtuma["kerroinX"]
            
         elif (t3 == "2"):
-            kerroin = kerroin*t["kerroin2"]
+            kerroin = kerroin*tapahtuma["kerroin2"]
     
     if(t4!="-" and t4!=""):
-        t = tap[3]
+        tapahtuma = monivedot[3]
     
         if (t4 =="1"):
-            kerroin = kerroin*t["kerroin1"]
+            kerroin = kerroin*tapahtuma["kerroin1"]
             
         elif (t4 == "X"):
-            kerroin = kerroin*t["kerroinX"]
+            kerroin = kerroin*tapahtuma["kerroinX"]
            
         elif (t4 == "2"):
-            kerroin = kerroin*t["kerroin2"]
+            kerroin = kerroin*tapahtuma["kerroin2"]
     
     if(t5!="-" and t5!=""):
-        t = tap[4]
+        tapahtuma = monivedot[4]
     
         if (t5 == "1"):
-            kerroin = kerroin*t["kerroin1"]
+            kerroin = kerroin*tapahtuma["kerroin1"]
             
         elif (t5 == "X"):
-            kerroin = kerroin*t["kerroinX"]
+            kerroin = kerroin*tapahtuma["kerroinX"]
            
         elif (t5 == "2"):
-            kerroin = kerroin*t["kerroin2"]
+            kerroin = kerroin*tapahtuma["kerroin2"]
 
     if(t6!="-" and t6!=""):
-        t = tap[2]
+        tapahtuma = monivedot[2]
     
         if (t6 == "1"):
-            kerroin = kerroin*t["kerroin1"]
+            kerroin = kerroin*tapahtuma["kerroin1"]
             
         elif (t6 == "X"):
-            kerroin = kerroin*t["kerroinX"]
+            kerroin = kerroin*tapahtuma["kerroinX"]
            
         elif (t6 == "2"):
-            kerroin = kerroin*t["kerroin2"]
+            kerroin = kerroin*tapahtuma["kerroin2"]
     kerroin = ("%.2f" % float(kerroin))        
 
     stmt = text("UPDATE veto SET kerroin = :kerroin"
@@ -330,35 +328,35 @@ def update_moniveto(veto_id):
                     ).params(kerroin=kerroin, id=veto_id)
     db.engine.execute(stmt)
     
-    if (tap[0]["veikkaus"] != "-"):
+    if (monivedot[0]["veikkaus"] != "-"):
         stmt = text("UPDATE tapahtumaveto SET veikkaus = :veikkaus"
                 " WHERE id = :id"
-                ).params(veikkaus=t1, id=tap[0]["tapahtumaveto_id"])
+                ).params(veikkaus=t1, id=monivedot[0]["tapahtumaveto_id"])
         db.engine.execute(stmt)
-    if (tap[1]["veikkaus"] != "-"):
+    if (monivedot[1]["veikkaus"] != "-"):
         stmt = text("UPDATE tapahtumaveto SET veikkaus = :veikkaus"
                 " WHERE id = :id"
-                ).params(veikkaus=t2, id=tap[1]["tapahtumaveto_id"])
+                ).params(veikkaus=t2, id=monivedot[1]["tapahtumaveto_id"])
         db.engine.execute(stmt)
-    if (tap[2]["veikkaus"] != "-"):
+    if (monivedot[2]["veikkaus"] != "-"):
         stmt = text("UPDATE tapahtumaveto SET veikkaus = :veikkaus"
                 " WHERE id = :id"
-                ).params(veikkaus=t3, id=tap[2]["tapahtumaveto_id"])
+                ).params(veikkaus=t3, id=monivedot[2]["tapahtumaveto_id"])
         db.engine.execute(stmt)
-    if (tap[3]["veikkaus"] != "-"):
+    if (monivedot[3]["veikkaus"] != "-"):
         stmt = text("UPDATE tapahtumaveto SET veikkaus = :veikkaus"
                 " WHERE id = :id"
-                ).params(veikkaus=t4, id=tap[3]["tapahtumaveto_id"])
+                ).params(veikkaus=t4, id=monivedot[3]["tapahtumaveto_id"])
         db.engine.execute(stmt)
-    if (tap[4]["veikkaus"] != "-"):
+    if (monivedot[4]["veikkaus"] != "-"):
         stmt = text("UPDATE tapahtumaveto SET veikkaus = :veikkaus"
                 " WHERE id = :id"
-                ).params(veikkaus=t5, id=tap[4]["tapahtumaveto_id"])
+                ).params(veikkaus=t5, id=monivedot[4]["tapahtumaveto_id"])
         db.engine.execute(stmt)
-    if (tap[5]["veikkaus"] != "-"):
+    if (monivedot[5]["veikkaus"] != "-"):
         stmt = text("UPDATE tapahtumaveto SET veikkaus = :veikkaus"
                 " WHERE id = :id"
-                ).params(veikkaus=t6, id=tap[5]["tapahtumaveto_id"])
+                ).params(veikkaus=t6, id=monivedot[5]["tapahtumaveto_id"])
         db.engine.execute(stmt)
 
     return redirect(url_for("index"))
@@ -369,10 +367,10 @@ def update_tulosveto(veto_id):
     koti = form.tulosveto_koti.data
     vieras = form.tulosveto_vieras.data
     
-    tap = Tapahtuma.haeMonivetoTapahtumatByVetoId(veto_id) 
+    tulosvedot = Tapahtuma.haeMonivetoTapahtumatByVetoId(veto_id) 
     tapahtumat = []
     veikkaus = koti + "-" + vieras
-    kerroin = Tapahtuma.haeTulosvetokerroin(tap[0]["tapahtuma_id"],veikkaus)
+    kerroin = Tapahtuma.haeTulosvetokerroin(tulosvedot[0]["tapahtuma_id"],veikkaus)
             
     kerroin = ("%.2f" % kerroin)        
 
@@ -381,10 +379,10 @@ def update_tulosveto(veto_id):
                     ).params(kerroin=kerroin, id=veto_id)
     db.engine.execute(stmt)
     
-    if (tap[0]["veikkaus"] != "-"):
+    if (tulosvedot[0]["veikkaus"] != "-"):
         stmt = text("UPDATE tapahtumaveto SET veikkaus = :veikkaus"
                 " WHERE id = :id"
-                ).params(veikkaus=veikkaus, id=tap[0]["tapahtumaveto_id"])
+                ).params(veikkaus=veikkaus, id=tulosvedot[0]["tapahtumaveto_id"])
         db.engine.execute(stmt)
 
     return redirect(url_for("index"))

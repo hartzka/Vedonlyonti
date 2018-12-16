@@ -253,14 +253,14 @@ class Tapahtuma(Base):
         response = []
         
         for row in res:
-            d = datetime.strptime(str(row[1]), '%Y-%m-%d %H:%M:%S.%f')
+            date = datetime.strptime(str(row[1]), '%Y-%m-%d %H:%M:%S.%f')
             
         
-            if(d < present):
+            if(date < present):
                 
-                t = arvoUusiTapahtuma(row[0], live) #palautaa taulukon, jossa koti, vieras, laji, kerroin, date_expire
+                tapahtuma = arvoUusiTapahtuma(row[0], live) #palautaa taulukon, jossa koti, vieras, laji, kerroin, date_expire
 
-                response.append(t)
+                response.append(tapahtuma)
                 return response
      
             else:
@@ -269,9 +269,9 @@ class Tapahtuma(Base):
                     return response
                 
         while (len(response) < 1):
-            t = arvoUusiTapahtuma(0, live)
+            tapahtuma = arvoUusiTapahtuma(0, live)
      
-            response.append(t)
+            response.append(tapahtuma)
             
         return response
 
@@ -315,9 +315,9 @@ class Tapahtuma(Base):
         response = []
         
         for row in res:
-            d = str(datetime.strptime(str(row[7]), '%Y-%m-%d %H:%M:%S.%f'))
-            d = d[0:16]
-            response.append({"id":row[0], "koti":row[1], "vieras":row[2], "laji":Laji.haeLaji(row[3]), "kerroin1":row[4], "kerroin2":row[5], "kerroinX":row[6], "date_expire":d})
+            date = str(datetime.strptime(str(row[7]), '%Y-%m-%d %H:%M:%S.%f'))
+            date = date[0:16]
+            response.append({"id":row[0], "koti":row[1], "vieras":row[2], "laji":Laji.haeLaji(row[3]), "kerroin1":row[4], "kerroin2":row[5], "kerroinX":row[6], "date_expire":date})
         
         while(len(response) < 6):
             response.append({})
@@ -340,9 +340,9 @@ class Tapahtuma(Base):
         response = []
         
         for row in res:
-            d = str(datetime.strptime(str(row[7]), '%Y-%m-%d %H:%M:%S.%f'))
-            d = d[0:16]
-            response.append({"id":row[0], "koti":row[1], "vieras":row[2], "laji":Laji.haeLaji(row[3]), "kerroin1":row[4], "kerroin2":row[5], "kerroinX":row[6], "date_expire":d})
+            date = str(datetime.strptime(str(row[7]), '%Y-%m-%d %H:%M:%S.%f'))
+            date = date[0:16]
+            response.append({"id":row[0], "koti":row[1], "vieras":row[2], "laji":Laji.haeLaji(row[3]), "kerroin1":row[4], "kerroin2":row[5], "kerroinX":row[6], "date_expire":date})
         
         while(len(response) < 6):
             response.append({})
@@ -368,9 +368,9 @@ class Tapahtuma(Base):
         response = []
         
         for row in res:
-            d = str(datetime.strptime(str(row[7]), '%Y-%m-%d %H:%M:%S.%f'))
-            d = d[0:16]
-            response.append({"id":row[0], "koti":row[1], "vieras":row[2], "laji":Laji.haeLaji(row[3]), "kerroin1":row[4], "kerroin2":row[5], "kerroinX":row[6], "date_expire":d})
+            date = str(datetime.strptime(str(row[7]), '%Y-%m-%d %H:%M:%S.%f'))
+            date = date[0:16]
+            response.append({"id":row[0], "koti":row[1], "vieras":row[2], "laji":Laji.haeLaji(row[3]), "kerroin1":row[4], "kerroin2":row[5], "kerroinX":row[6], "date_expire":date})
                 
         return response
     
@@ -393,9 +393,9 @@ class Tapahtuma(Base):
         response = []
         
         for row in res:
-            d = str(datetime.strptime(str(row[7]), '%Y-%m-%d %H:%M:%S.%f'))
-            d = d[0:16]
-            response.append({"id":row[0], "koti":row[1], "vieras":row[2], "laji":Laji.haeLaji(row[3]), "kerroin1":row[4], "kerroin2":row[5], "kerroinX":row[6], "date_expire":d})
+            date = str(datetime.strptime(str(row[7]), '%Y-%m-%d %H:%M:%S.%f'))
+            date = date[0:16]
+            response.append({"id":row[0], "koti":row[1], "vieras":row[2], "laji":Laji.haeLaji(row[3]), "kerroin1":row[4], "kerroin2":row[5], "kerroinX":row[6], "date_expire":date})
                 
                 
         return response
@@ -461,9 +461,9 @@ class Tapahtuma(Base):
         present = datetime.now()
 
         poistettavat = Veto.haePoistettavat() #poistettavat tapahtumat, jotka ei liity vetoihin
-        for tid in poistettavat:
+        for tapahtuma_id in poistettavat:
             stmt = text("DELETE FROM tapahtuma WHERE id = :id"
-            ).params(id = tid)
+            ).params(id = tapahtuma_id)
             db.engine.execute(stmt)
 
     #tulosten päivitys valmiille tapahtumille
@@ -489,19 +489,19 @@ class Tapahtuma(Base):
 
                 home_goals = -1
                 s = 0 #keskiarvoon lisättävä
-                t = 0 #hajontaan lisättävä
+                tilitapahtuma = 0 #hajontaan lisättävä
                 if (row[2]==1): #jalkapallo
                     s=-1
-                    t=-1
+                    tilitapahtuma=-1
                 elif (row[2]==3): #koripallo
                     s=75
-                    t=13
+                    tilitapahtuma=13
                 while (home_goals < 0):
-                    home_goals = int(random.gauss(2+s+(response[0]["attack"]-response[1]["defence"])/10, 3+t)) + int(random.gauss(response[0]["tactic"]/100, 1))
+                    home_goals = int(random.gauss(2+s+(response[0]["attack"]-response[1]["defence"])/10, 3+tilitapahtuma)) + int(random.gauss(response[0]["tactic"]/100, 1))
 
                 away_goals = -1
                 while (away_goals < 0):
-                    away_goals = int(random.gauss(2+s+(response[1]["attack"]-response[0]["defence"])/10, 3+t)) + int(random.gauss(response[1]["tactic"]/100, 1))
+                    away_goals = int(random.gauss(2+s+(response[1]["attack"]-response[0]["defence"])/10, 3+tilitapahtuma)) + int(random.gauss(response[1]["tactic"]/100, 1))
 
                 koti = 0
                 if (response[0]["koti"] == 1):
@@ -606,8 +606,8 @@ class Tapahtuma(Base):
                 voitto = kerroin*panos
                 voitto = ("%.2f" % voitto)
             
-                t = Tilitapahtuma("Pelivoitto", voitto)
-                t.account_id = current_user.id
+                tilitapahtuma = Tilitapahtuma("Pelivoitto", voitto)
+                tilitapahtuma.account_id = current_user.id
                 rahat = current_user.getRahat()
 
                 rahat = float(rahat) + float(voitto)
@@ -616,7 +616,7 @@ class Tapahtuma(Base):
                 stm = text("UPDATE veto SET voitto = :voitto WHERE id = :id"
                 ).params(voitto=voitto, id=veto["id"])
                 db.engine.execute(stm)
-                db.session().add(t)
+                db.session().add(tilitapahtuma)
                 db.session().commit()
 
         present = datetime.now()
@@ -640,16 +640,16 @@ class Tapahtuma(Base):
                 tapahtumat = Tapahtuma.haeMonivetoTapahtuma(live)
        
             row = tapahtumat[0][0]
-            tj1 = row["tj1"]
-            tj2 = row["tj2"]
-            t = Tapahtuma(row["koti"], row["vieras"],
+            tapahtumajoukkue_1 = row["tj1"]
+            tapahtumajoukkue_2 = row["tj2"]
+            tilitapahtuma = Tapahtuma(row["koti"], row["vieras"],
             row["laji"], row["kerroin1"], row["kerroinX"], row["kerroin2"],
             row["date_expire"], True, row["live"])
-            t.id = row["id"]
-            db.session().add(t)
+            tilitapahtuma.id = row["id"]
+            db.session().add(tilitapahtuma)
             db.session().commit()
-            db.session().add(tj1)
-            db.session().add(tj2)
+            db.session().add(tapahtumajoukkue_1)
+            db.session().add(tapahtumajoukkue_2)
             db.session().commit()
             stmt = text("UPDATE tapahtuma SET active = False WHERE id = :id"
                      ).params(id=row["old"])

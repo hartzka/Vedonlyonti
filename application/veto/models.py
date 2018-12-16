@@ -26,12 +26,12 @@ class Veto(Base):
         )
         res = db.engine.execute(stmt)
         
-        uid = 0
+        new_id = 0
         for row in res:
             if type(row[0]) == int:
-                uid = row[0]
+                new_id = row[0]
 
-        return (uid+1)
+        return (new_id+1)
 
     @staticmethod
     def haePoistettavat():
